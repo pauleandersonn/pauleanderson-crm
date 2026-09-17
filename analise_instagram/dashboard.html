@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Instagram Dashboard — Hermes Agent</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0f172a; color: #f1f5f9; line-height: 1.6; padding: 24px; max-width: 1400px; margin: 0 auto; }
+  h1 { font-size: 28px; }
+  h2 { font-size: 22px; margin: 32px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #3b82f6; }
+  h3 { font-size: 17px; margin: 20px 0 12px; color: #94a3b8; }
+  .hero { background: linear-gradient(135deg, #1e293b, #0f172a); padding: 40px; border-radius: 12px; margin-bottom: 24px; border: 1px solid #334155; text-align: center; }
+  .hero h1 { font-size: 36px; margin-bottom: 8px; }
+  .hero p { color: #94a3b8; font-size: 15px; }
+  .input-card { background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 24px; margin-bottom: 24px; }
+  .input-row { display: flex; gap: 12px; align-items: stretch; }
+  .input-row input { flex: 1; padding: 14px 16px; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: #f1f5f9; font-size: 16px; font-family: inherit; }
+  .input-row input:focus { outline: none; border-color: #3b82f6; }
+  .input-row button { padding: 14px 28px; background: #3b82f6; border: none; border-radius: 8px; color: white; font-weight: 600; cursor: pointer; font-size: 16px; transition: background 0.2s; }
+  .input-row button:hover { background: #2563eb; }
+  .input-row button:disabled { background: #475569; cursor: not-allowed; opacity: 0.7; }
+  .examples { margin-top: 12px; font-size: 13px; color: #94a3b8; }
+  .examples code { background: #334155; padding: 2px 6px; border-radius: 4px; cursor: pointer; margin-right: 6px; }
+  .examples code:hover { background: #475569; }
+  .log-card { background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 16px 20px; margin-bottom: 24px; font-family: "Consolas", monospace; font-size: 13px; max-height: 240px; overflow-y: auto; display: none; }
+  .log-card.show { display: block; }
+  .log-line { color: #94a3b8; padding: 2px 0; }
+  .log-line.ok { color: #10b981; }
+  .log-line.warn { color: #f59e0b; }
+  .log-line.err { color: #ef4444; }
+  .results { display: none; }
+  .results.show { display: block; }
+  .grid { display: grid; gap: 16px; }
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 768px) { .grid-2, .grid-4 { grid-template-columns: 1fr; } .input-row { flex-direction: column; } }
+  .card { background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 20px; }
+  .metric-big { text-align: center; padding: 12px; }
+  .metric-big .num { font-size: 32px; font-weight: 700; color: #3b82f6; display: block; }
+  .metric-big .label { font-size: 11px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
+  .profile-header { display: flex; gap: 20px; align-items: flex-start; }
+  .profile-header img { width: 80px; height: 80px; border-radius: 50%; border: 3px solid #3b82f6; flex-shrink: 0; }
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; text-transform: uppercase; background: #3b82f6; color: white; }
+  .badge.good { background: #10b981; }
+  .badge.warn { background: #f59e0b; }
+  .badge.bad { background: #ef4444; }
+  .top-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  @media (max-width: 768px) { .top-grid { grid-template-columns: 1fr; } }
+  .top-card { background: #1e293b; border: 1px solid #334155; border-radius: 10px; overflow: hidden; transition: transform 0.2s; margin-bottom: 16px; }
+  .top-card:hover { transform: translateY(-2px); border-color: #3b82f6; }
+  .top-card img { width: 100%; height: 200px; object-fit: cover; display: block; background: #334155; }
+  .top-card-body { padding: 12px 16px; }
+  .top-rank { position: absolute; background: #fbbf24; color: #0f172a; padding: 4px 10px; border-radius: 999px; font-weight: 700; font-size: 12px; margin: 8px; }
+  .top-card-wrap { position: relative; }
+  .top-card-stats { font-size: 13px; color: #94a3b8; margin: 8px 0; }
+  .top-card-stats strong { color: #f1f5f9; }
+  .er-tag { display: inline-block; background: rgba(251,191,36,0.15); color: #fbbf24; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 600; }
+  .caption { font-size: 12px; color: #94a3b8; margin-top: 8px; line-height: 1.5; }
+  .footer { margin-top: 40px; padding: 20px; border-top: 1px solid #334155; color: #94a3b8; font-size: 12px; text-align: center; }
+  .loading-spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid #ffffff; border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite; vertical-align: middle; margin-right: 8px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .btn-pdf { display: inline-block; padding: 10px 20px; background: #ef4444; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 14px; transition: background 0.2s; }
+  .btn-pdf:hover { background: #dc2626; }
+  .btn-pdf::before { content: "📄 "; margin-right: 6px; }
+  .progress { background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 24px; margin-bottom: 24px; text-align: center; }
+  .progress-stage { color: #94a3b8; font-size: 14px; margin: 12px 0; }
+  .progress-bar { width: 100%; height: 6px; background: #334155; border-radius: 3px; overflow: hidden; margin: 16px 0; }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg, #3b82f6, #10b981); width: 0%; transition: width 0.3s; }
+  /* Stats do breakdown */
+  .stat { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #334155; }
+  .stat:last-child { border-bottom: none; }
+  .stat span:first-child { color: #cbd5e1; }
+  /* Tabela */
+  table { width: 100%; border-collapse: collapse; }
+  th { text-align: left; padding: 8px; color: #94a3b8; border-bottom: 1px solid #334155; font-size: 12px; text-transform: uppercase; }
+  td { padding: 8px; color: #f1f5f9; border-bottom: 1px solid rgba(51,65,85,0.5); }
+  td span.good { color: #10b981; font-weight: 600; }
+  td span.bad { color: #ef4444; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Instagram Dashboard</h1>
+  <p>Análise automática com auditoria 6D + big benef real vs benchmark</p>
+</div>
+
+<div class="input-card">
+  <div class="input-row">
+    <input id="handleInput" type="text" placeholder="@drrenatogallo" autofocus />
+    <button id="analyzeBtn" onclick="analyze()">Analisar</button>
+  </div>
+  <div class="examples">
+    <strong>Exemplos:</strong>
+    <code onclick="document.getElementById('handleInput').value='drrenatogallo'">drrenatogallo</code>
+    <code onclick="document.getElementById('handleInput').value='dreulerfilho'">dreulerfilho</code>
+    <code onclick="document.getElementById('handleInput').value='midiacriativadoreino'">midiacriativadoreino</code>
+  </div>
+</div>
+
+<div id="progress" class="progress" style="display:none;">
+  <h3>Coletando dados via Apify...</h3>
+  <div class="progress-stage" id="progressStage">Iniciando</div>
+  <div class="progress-bar"><div class="progress-bar-fill" id="progressBar"></div></div>
+  <div style="color:#94a3b8; font-size:12px;">Isso pode levar 30-90 segundos (1a vez).</div>
+</div>
+
+<div id="logCard" class="log-card"></div>
+
+<div id="results" class="results"></div>
+
+<div class="footer">
+  Dashboard Hermes Agent + Apify · Cache 24h · 2026
+</div>
+
+<script>
+// ========== Renderer completo (com auditoria) ==========
+function fmt(n) { return Number(n||0).toLocaleString('pt-BR'); }
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function badge(score) {
+  if (score >= 75) return '<span class="badge good">'+score+'</span>';
+  if (score >= 60) return '<span class="badge">'+score+'</span>';
+  if (score >= 40) return '<span class="badge warn">'+score+'</span>';
+  return '<span class="badge bad">'+score+'</span>';
+}
+
+function renderFull(data) {
+  const a = data.audit || null;
+  const p = data.profile;
+  const m = (a && a.metrics) || data.metrics || {};
+  const handle = data.handle || (a && a.handle) || '';
+  const ig = a ? a.ig_health_score : 0;
+  const status = a ? a.status : 'Auditoria nao disponivel';
+  const s = a ? a.scores : {};
+  const types = (a && a.types) || {};
+  const pil = (a && a.pillar_distribution) || {};
+  const top = data.top || [];
+  const totalPil = Object.values(pil).reduce((x,y)=>x+y,0) || 1;
+
+  let badges = '';
+  if (p.verified) badges += '<span class="badge good">Verificado</span> ';
+  if (p.isBusinessAccount) badges += '<span class="badge">Business</span> ';
+
+  let cards = '';
+  top.forEach((t, i) => {
+    const po = t.post || t;
+    const sc = po.shortCode || po.code || '';
+    const thumb = po.displayUrl || po.thumbnailUrl || (po.images||[{}])[0].url || '';
+    const cap = (po.caption || '').substring(0, 140);
+    const url = sc ? ('https://www.instagram.com/p/' + sc + '/') : '#';
+    const ptype = po.type || po.productType || '?';
+    const likes = t.likes !== undefined ? t.likes : (po.likesCount||0);
+    const comments = t.comments !== undefined ? t.comments : (po.commentsCount||0);
+    const views = t.views !== undefined ? t.views : (po.videoViewCount||po.videoPlayCount||0);
+    cards += '<a href="'+url+'" target="_blank" style="text-decoration:none;color:inherit;">' +
+      '<div class="top-card"><div class="top-card-wrap">' +
+      '<span class="top-rank">#'+(i+1)+'</span>' +
+      '<img src="'+thumb+'" loading="lazy" onerror="this.style.background=\'#334155\';this.removeAttribute(\'src\')" />' +
+      '</div><div class="top-card-body">' +
+      '<span class="badge">'+esc(ptype)+'</span>' +
+      '<div class="top-card-stats">' +
+      '<strong>'+fmt(likes)+'</strong> likes &middot; ' +
+      '<strong>'+fmt(comments)+'</strong> comments &middot; ' +
+      '<strong>'+fmt(views)+'</strong> views' +
+      '</div>' +
+      '<span class="er-tag">Score: '+(t.score||0)+'</span>' +
+      '<p class="caption">'+esc(cap)+'...</p>' +
+      '</div></div></a>';
+  });
+
+  let sBreakdown = '';
+  if (a) {
+    sBreakdown =
+      '<div class="stat"><span>Content Quality</span><span>'+badge(s.content_quality||0)+'</span></div>' +
+      '<div class="stat"><span>Engagement Performance</span><span>'+badge(s.engagement||0)+'</span></div>' +
+      '<div class="stat"><span>Creative Quality</span><span>'+badge(s.creative||0)+'</span></div>' +
+      '<div class="stat"><span>Growth Trajectory</span><span>'+badge(s.growth||0)+'</span></div>' +
+      '<div class="stat"><span>Competitive Position</span><span>'+badge(s.competitive||0)+'</span></div>' +
+      '<div class="stat"><span>Compliance</span><span>'+badge(s.compliance||0)+'</span></div>';
+  }
+
+  let benches = '';
+  if (a) {
+    const bench = a.benchmark || {};
+    const videoPct = ((types['Video']||0)+(types['Reel']||0)) / Math.max(m.posts_analyzed||1, 1) * 100;
+    const ctaPct = (m.posts_with_cta||0) / Math.max(m.posts_analyzed||1, 1) * 100;
+
+    function cmpRow(label, val, bv, fmtS, lowerBetter) {
+      const f = (v) => fmtS.replace('{:.3f}', v.toFixed(3)).replace('{:.1f}', v.toFixed(1)).replace('{:.0f}', Math.round(v)).replace('{:.2f}', v.toFixed(2));
+      let diff = val - bv;
+      if (lowerBetter) diff = -diff;
+      const ok = diff >= 0;
+      return '<tr><td>'+label+'</td><td>'+f(val)+'</td><td>'+f(bv)+'</td><td><span class="'+ (ok?'good':'bad') +'">'+ (diff>=0?'+':'') +diff.toFixed(2) +'</span></td></tr>';
+    }
+    benches =
+      '<table>' +
+      '<thead><tr><th>Metrica</th><th>Conta</th><th>Benchmark</th><th>Gap</th></tr></thead>' +
+      '<tbody>' +
+      cmpRow('Engagement Rate (%)', parseFloat(m.er_pct||0), bench.er||1.2, '{:.3f}') +
+      cmpRow('Cadencia (posts/mes)', parseFloat(m.cadencia_per_month||0), bench.cadencia||12, '{:.1f}', true) +
+      cmpRow('Mix Video (%)', videoPct, bench.video_pct||55, '{:.0f}') +
+      cmpRow('Hashtags / post', parseFloat(m.hashtags_per_post||0), bench.hashtags_per_post||5, '{:.1f}') +
+      cmpRow('Posts com CTA (%)', ctaPct, bench.cta_pct||80, '{:.0f}') +
+      '</tbody></table>';
+  }
+
+  let pilares = '';
+  if (a && Object.keys(pil).length) {
+    const rows = Object.entries(pil).sort((x,y)=>y[1]-x[1]).map(([k,v]) =>
+      '<tr><td>'+esc(k)+'</td><td>'+v+'</td><td>'+Math.round(v/totalPil*100)+'%</td></tr>'
+    ).join('');
+    pilares = '<table><thead><tr><th>Pilar</th><th>Posts</th><th>%</th></tr></thead><tbody>'+rows+'</tbody></table>';
+  }
+
+  let compliance = '';
+  if (a) {
+    const comp = a.compliance || {};
+    const tot = comp.total || 1;
+    function pct(n) { return Math.round((n||0)/tot*100); }
+    function compStatus(n, th) {
+      return pct(n)>=th ? '<span class="badge good">OK</span>' : (pct(n)>=40?'<span class="badge warn">Atencao</span>':'<span class="badge bad">Critico</span>');
+    }
+    const ad_pct = pct(comp.antes_depois);
+    compliance =
+      '<table><thead><tr><th>Indicador</th><th>Posts</th><th>%</th><th>Status</th></tr></thead>' +
+      '<tbody>' +
+      '<tr><td>CRM identificado</td><td>'+(comp.crm||0)+'/'+tot+'</td><td>'+pct(comp.crm)+'%</td><td>'+compStatus(comp.crm,80)+'</td></tr>' +
+      '<tr><td>Antes/depois</td><td>'+(comp.antes_depois||0)+'/'+tot+'</td><td>'+ad_pct+'%</td><td>'+(comp.antes_depois>0?'<span class="badge warn">Consentimento</span>':'<span class="badge good">OK</span>')+'</td></tr>' +
+      '<tr><td>Promessas de resultado</td><td>'+(comp.promessa||0)+'/'+tot+'</td><td>'+pct(comp.promessa)+'%</td><td>'+(comp.promessa>0?'<span class="badge bad">Critico</span>':'<span class="badge good">OK</span>')+'</td></tr>' +
+      '<tr><td>Divulgacao de precos</td><td>'+(comp.preco||0)+'/'+tot+'</td><td>'+pct(comp.preco)+'%</td><td>'+(comp.preco>2?'<span class="badge warn">Atencao</span>':'<span class="badge good">OK</span>')+'</td></tr>' +
+      '</tbody></table>';
+  }
+
+  let recs = [];
+  if (a) {
+    if (s.engagement < 50) recs.push('<strong>Aumentar engajamento (atual '+m.er_pct+'%, benchmark 1.2%)</strong>: variar formato (95% video), adicionar perguntas em 80% dos captions, criar ganchos fortes nos primeiros 2 segundos.');
+    if ((m.hashtags_per_post||0) < 3) recs.push('<strong>Hashtags subutilizadas (atual '+(m.hashtags_per_post||0)+'/post, benchmark 5+)</strong>: criar set fixo de 8 hashtags por post (3 nichos amplos + 3 especificos + 2 locais).');
+    if ((m.cadencia_per_month||0) > 20) recs.push('<strong>Cadencia excessiva ('+(m.cadencia_per_month||0)+'/mes, saudavel 12-18)</strong>: posts competem entre si. Reduzir para 15-18 com qualidade maior.');
+    if ((s.creative||0) < 60) recs.push('<strong>Mix criativo fraco</strong>: aumentar % de video curto (15-60s) com thumbnail + texto sobreposto. Adicionar carrosseis educativos.');
+    if (!recs.length) recs.push('Conta em boa saude. Foco em escalar o que funciona e testar novos formatos (lives, colaboracoes, series).');
+  }
+
+  let html = '';
+  if (a) {
+    html +=
+      '<div class="hero"><h1>Auditoria Completa — @'+esc(handle)+'</h1><p>Analise 6 dimensoes + big benef real vs benchmark</p></div>' +
+      '<h2>IG Health Score</h2>' +
+      '<div class="grid" style="grid-template-columns: 200px 1fr; gap: 16px; align-items: stretch;">' +
+      '<div class="card" style="text-align:center;">' +
+      '<div style="font-size:64px; font-weight:800; background:linear-gradient(135deg,#fbbf24,#f59e0b); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;">'+ig+'</div>' +
+      '<div style="color:#94a3b8; font-size:11px; text-transform:uppercase; letter-spacing:2px; margin-top:4px;">'+esc(status.split(' (')[0])+'</div>' +
+      '</div>' +
+      '<div class="card">' +
+      '<h3>Breakdown 6 Dimensoes</h3>' +
+      sBreakdown +
+      '</div>' +
+      '</div>';
+  } else {
+    html += '<div class="hero"><h1>Analise — @'+esc(handle)+'</h1><p>Auditoria nao disponivel. Recarregue a pagina.</p></div>';
+  }
+
+  html +=
+    '<h2>Perfil</h2>' +
+    '<div class="card">' +
+    '<div class="profile-header">' +
+    '<img src="'+(p.profilePicUrlHD||'')+'" alt="" onerror="this.style.display=\'none\'" />' +
+    '<div>' +
+    '<h2 style="border:none;padding:0;margin:0;">@'+esc(handle)+' — '+esc(p.fullName||'')+'</h2>' +
+    '<div style="color:#94a3b8; font-size:13px; margin-top:6px;">'+badges+'</div>' +
+    '<p style="margin-top:10px; color:#cbd5e1; font-size:13px;">'+esc((p.biography||'').substring(0,300))+'</p>' +
+    '</div></div>' +
+    '<div class="grid grid-4" style="margin-top:20px;">' +
+    '<div class="metric-big"><span class="num">'+fmt(p.followersCount||0)+'</span><span class="label">Followers</span></div>' +
+    '<div class="metric-big"><span class="num">'+fmt(p.followsCount||0)+'</span><span class="label">Seguindo</span></div>' +
+    '<div class="metric-big"><span class="num">'+fmt(p.postsCount||0)+'</span><span class="label">Posts totais</span></div>' +
+    '<div class="metric-big"><span class="num">'+(m.er_pct||'0')+'%</span><span class="label">Engagement Rate</span></div>' +
+    '</div>' +
+    '</div>';
+
+  if (a) {
+    html +=
+      '<h2>Metricas-chave ('+(m.posts_analyzed||0)+' posts analisados &middot; '+esc(m.date_range||'')+')</h2>' +
+      '<div class="card"><div class="grid grid-4">' +
+      '<div class="metric-big"><span class="num">'+(m.avg_likes||0)+'</span><span class="label">Likes medios</span></div>' +
+      '<div class="metric-big"><span class="num">'+(m.avg_comments||0)+'</span><span class="label">Comments medios</span></div>' +
+      '<div class="metric-big"><span class="num">'+fmt(m.avg_views||0)+'</span><span class="label">Views medios</span></div>' +
+      '<div class="metric-big"><span class="num">'+(m.cadencia_per_month||0)+'</span><span class="label">Posts / mes</span></div>' +
+      '</div></div>' +
+      '<h2>Big Benef Real — vs Benchmark do Nicho</h2>' +
+      '<div class="card"><p style="color:#94a3b8; font-size:13px; margin-bottom:12px;">Benchmark: contas similares em nicho de autoridade/servico profissional</p>' + benches + '</div>' +
+      '<h2>Pilares de Conteudo</h2><div class="card">'+ pilares +'</div>' +
+      '<h2>Compliance CFM / Boas Praticas</h2><div class="card">'+ compliance +'</div>';
+  }
+
+  html += '<h2>Top '+(top.length||10)+' Conteudos (ranked por engajamento)</h2><div class="top-grid">'+cards+'</div>';
+
+  if (a && recs.length) {
+    html += '<h2>Recomendacoes Imediatas</h2><div class="card"><ol style="padding-left:20px;">'+
+      recs.map(r=>'<li>'+r+'</li>').join('') +
+      '</ol></div>';
+  }
+
+  html += '<div style="margin-top:20px; text-align:right;">' +
+    '<a href="/pdf?handle='+esc(handle)+'&mode=full" target="_blank" class="btn-pdf">Exportar PDF Completo</a>' +
+    '</div>' +
+    '<div class="footer">Auditoria gerada via Hermes + Apify &middot; ' + new Date().toLocaleString('pt-BR') + '</div>';
+
+  document.getElementById('results').innerHTML = html;
+  document.getElementById('results').classList.add('show');
+}
+
+// ========== Controller ==========
+const logCard = document.getElementById('logCard');
+const btn = document.getElementById('analyzeBtn');
+const input = document.getElementById('handleInput');
+const progress = document.getElementById('progress');
+
+function log(msg, type='') {
+  logCard.classList.add('show');
+  const line = document.createElement('div');
+  line.className = 'log-line ' + type;
+  const ts = new Date().toLocaleTimeString();
+  line.textContent = '['+ts+'] ' + msg;
+  logCard.appendChild(line);
+  logCard.scrollTop = logCard.scrollHeight;
+}
+function clearLog() { logCard.innerHTML = ''; }
+function setProgress(stage, pct) {
+  progress.style.display = 'block';
+  document.getElementById('progressStage').textContent = stage;
+  document.getElementById('progressBar').style.width = pct+'%';
+}
+function hideProgress() { progress.style.display = 'none'; }
+
+async function tryRenderFromCache(handle) {
+  // 1) Tenta auditoria completa primeiro
+  let r = await fetch('/api/result?handle='+encodeURIComponent(handle)+'&mode=full');
+  if (r.ok) {
+    const data = await r.json();
+    if (data && data.audit) { log('Cache FULL encontrado. Renderizando auditoria.', 'ok'); return data; }
+  }
+  // 2) Tenta simple
+  r = await fetch('/api/result?handle='+encodeURIComponent(handle));
+  if (r.ok) {
+    const data = await r.json();
+    if (data && data.profile) {
+      log('Cache SIMPLE encontrado (sem auditoria). Para auditoria completa, force nova coleta.', 'warn');
+      return data;
+    }
+  }
+  return null;
+}
+
+async function analyze() {
+  const handle = input.value.trim().replace(/^@/, '').toLowerCase();
+  if (!handle) { input.focus(); return; }
+  clearLog();
+  document.getElementById('results').innerHTML = '';
+  document.getElementById('results').classList.remove('show');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loading-spinner"></span>Coletando...';
+
+  log('Verificando cache para @'+handle+'...');
+  setProgress('Verificando cache...', 10);
+
+  // Tenta cache
+  const cached = await tryRenderFromCache(handle);
+  if (cached) {
+    renderFull(cached);
+    btn.disabled = false;
+    btn.textContent = 'Analisar';
+    hideProgress();
+    return;
+  }
+
+  // Cache miss -> inicia job assincrono em mode=full
+  log('Cache expirado/inexistente. Iniciando coleta + auditoria...', 'warn');
+  setProgress('Coletando (perfil + posts)...', 30);
+
+  const startResp = await fetch('/api/analyze?handle='+encodeURIComponent(handle)+'&mode=full');
+  if (!startResp.ok) {
+    log('Erro ao iniciar job: HTTP '+startResp.status, 'err');
+    btn.disabled = false;
+    btn.textContent = 'Analisar';
+    hideProgress();
+    return;
+  }
+  const { job_id } = await startResp.json();
+  log('Job iniciado: '+job_id);
+  log('Apify pode levar 60-90s + auditoria. Aguarde...');
+
+  let attempts = 0;
+  while (attempts < 75) {
+    await new Promise(r => setTimeout(r, 2000));
+    attempts++;
+    const sResp = await fetch('/api/status?job='+job_id);
+    if (!sResp.ok) continue;
+    const s = await sResp.json();
+    setProgress(s.status === 'running' ? 'Coletando + auditando...' : s.status, 30 + attempts*1);
+    if (s.status === 'done') {
+      log('Coleta+auditoria concluida!', 'ok');
+      const data = await tryRenderFromCache(handle);
+      if (data) renderFull(data);
+      else log('Erro: cache nao foi populado.', 'err');
+      break;
+    }
+    if (s.status === 'error') {
+      log('Erro: '+(s.error||'desconhecido'), 'err');
+      document.getElementById('results').innerHTML = '<div class="card"><h3 style="color:#ef4444;">Erro</h3><p>'+(s.error||'')+'</p></div>';
+      document.getElementById('results').classList.add('show');
+      break;
+    }
+  }
+  if (attempts >= 75) {
+    log('Timeout. Tente novamente.', 'err');
+  }
+  btn.disabled = false;
+  btn.textContent = 'Analisar';
+  hideProgress();
+}
+
+input.addEventListener('keydown', e => { if (e.key === 'Enter') analyze(); });
+
+const params = new URLSearchParams(location.search);
+const auto = params.get('handle');
+if (auto) {
+  input.value = auto;
+  setTimeout(analyze, 200);
+}
+</script>
+
+</body>
+</html>

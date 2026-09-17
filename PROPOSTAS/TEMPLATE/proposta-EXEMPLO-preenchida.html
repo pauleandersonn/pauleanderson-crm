@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<!-- ============================================================
+     PLACEHOLDERS NO <title>:
+     Mentoria 1:1 · Fotografia pra Empreendedores  Cliente Particular
+     ============================================================ -->
+<title>Proposta — Mentoria 1:1 · Fotografia pra Empreendedores | Cliente Particular</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  /* ============================================================
+     TOKENS DE MARCA — altere aqui pra customizar
+     ============================================================ */
+  :root{
+    --ink:#111418;        /* Texto principal (preto suave) */
+    --ink-strong:#1a2027; /* Texto forte (citações, hero) */
+    --paper:#FDFCF8;      /* Fundo claro */
+    --gold:#A07F3A;       /* Cor de acento padrão (MCR). Troque pra cor do cliente aqui */
+    --rule:#E5E1D6;       /* Linhas sutis, bordas de cards */
+    --muted:#272A30;      /* Texto secundário (4.85:1 AA sobre paper) */
+    --soft:#FAF8F0;       /* Fundo do pricebox, citações */
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family: "Georgia", "Source Serif Pro", serif;
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.55;
+    font-size:15px;
+  }
+  .wrap{max-width:780px;margin:0 auto;padding:48px 56px;}
+  h1,h2,h3,h4{font-family:"Georgia",serif;letter-spacing:-.01em;margin:0 0 .3em}
+  h1{font-size:38px;line-height:1.05;color:var(--ink);margin-top:8px}
+  h2{font-size:26px;color:var(--ink);margin-top:48px;padding-bottom:8px;border-bottom:1.5px solid var(--gold)}
+  h3{font-size:16px;color:var(--ink);margin-top:24px}
+  p{margin:.6em 0}
+  .eyebrow{
+    font-family:"Helvetica Neue","Arial",sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.18em;
+    font-size:11px;
+    color:var(--gold);
+    font-weight:700;
+  }
+  .meta{
+    font-family:"Helvetica Neue","Arial",sans-serif;
+    font-size:12px;color:var(--muted);
+    margin-top:4px;letter-spacing:.02em;
+  }
+  .hero{
+    background:linear-gradient(180deg,#111418 0%, #1a1f25 100%);
+    color:#FDFCF8;
+    margin:-48px -56px 36px;
+    padding:56px 56px 44px;
+  }
+  .hero .eyebrow{color:var(--gold)}
+  .hero h1{color:#FDFCF8;font-size:42px}
+  .hero p{color:#d6d8db;max-width:560px;font-size:15px}
+  .pill{
+    display:inline-block;padding:4px 10px;border:1px solid rgba(160,127,58,.4);
+    border-radius:999px;color:var(--ink);font-size:11px;
+    font-family:"Helvetica Neue","Arial",sans-serif;
+    letter-spacing:.06em;margin-right:6px;
+    background:rgba(160,127,58,.06);
+  }
+  ul{padding-left:20px}
+  ul li{margin:.3em 0}
+  .crta{
+    border-left:3px solid var(--gold);
+    padding:10px 18px;color:var(--ink-strong);font-style:italic;
+    background:#F7F4EA;
+    margin:20px 0;
+    font-size:15px;
+  }
+  table{width:100%;border-collapse:collapse;margin:18px 0;font-family:"Helvetica Neue","Arial",sans-serif;font-size:13px}
+  th{background:var(--soft);text-align:left;padding:10px 12px;border-bottom:1.5px solid var(--ink);font-weight:700;letter-spacing:.02em}
+  td{padding:10px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+  .pricebox{
+    border:1.5px solid var(--ink);
+    border-top:4px solid var(--ink);
+    background:var(--soft);
+    padding:32px 36px;
+    margin:24px 0 28px;
+    text-align:center;
+  }
+  .pricebox .eyebrow{color:var(--gold);margin-bottom:8px}
+  .pricebox .bigprice{
+    font-family:"Georgia",serif;
+    font-size:54px;
+    font-weight:700;
+    color:var(--ink);
+    letter-spacing:-.02em;
+    line-height:1;
+    margin:4px 0 10px;
+  }
+  .pricebox .pricedesc{
+    font-family:"Helvetica Neue","Arial",sans-serif;
+    font-size:13px;
+    color:var(--muted);
+    max-width:520px;
+    margin:0 auto;
+    line-height:1.5;
+  }
+  .signoff{
+    margin-top:48px;padding:24px 0 0;border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue","Arial",sans-serif;
+  }
+  .signoff .who{font-size:14px;font-weight:700;color:var(--ink)}
+  .signoff .role{font-size:12px;color:var(--muted);margin-top:2px}
+  .signoff .contact{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.6}
+  .signoff .contact a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--gold)}
+  @media print{
+    body{font-size:12px}
+    .wrap{padding:24px 32px}
+    .hero{margin:-24px -32px 24px;padding:36px 32px}
+    h1{font-size:30px}
+    h2{font-size:20px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============================================================
+       HERO
+       Edite:
+         15 de julho de 2026              ex: 07 de julho de 2026
+         Mentoria 1:1 · Fotografia pra Empreendedores            ex: Formação Fotografia da Mulher Empreendedora
+         Programa de 8 sessões individuais, do celular ao portfólio profissional         ex: Programa de 40 horas em 7 encontros práticos
+         16h              ex: 40h
+         8           ex: 7
+         1              ex: 60
+         2026                        ex: 2026
+       ============================================================ -->
+  <div class="hero">
+    <div class="eyebrow">PROPOSTA COMERCIAL · 15 de julho de 2026</div>
+    <h1>Mentoria 1:1 · Fotografia pra Empreendedores</h1>
+    <p>Programa de 8 sessões individuais, do celular ao portfólio profissional</p>
+    <p style="margin-top:18px">
+      <span class="pill">Carga: 16h</span>
+      <span class="pill">8 encontros</span>
+      <span class="pill">1 alunas</span>
+      <span class="pill">2026</span>
+    </p>
+  </div>
+
+  <!-- ============================================================
+       1. APRESENTAÇÃO
+       Edite o parágrafo de abertura. Mantenha os bullets de experiência
+       (são a credibilidade — funcionam pra qualquer cliente).
+       ============================================================ -->
+  <h2>1. Apresentação</h2>
+  <p>Meu nome é <strong>Pauleandersonn Souza</strong> — publicitário, fotógrafo e instrutor. Sou fundador da Mídia Criativa do Reino (MCR), em Manaus/AM, e há mais de 6 anos ministro aulas de fotografia e comunicação visual pra públicos em formação inicial.</p>
+
+  <div class="crta">"A fotografia é a linguagem mais rápida do mundo. Quem aprende a falar, vende mais."</div>
+
+  <h3>Base de experiência comprovada</h3>
+  <p>Ao longo da minha trajetória, já passaram pelas minhas aulas <strong>mais de 1.000 alunos</strong> — entre turmas de formação inicial, oficinas livres e cursos institucionalizados. Duas instituições de destaque:</p>
+  <ul>
+    <li><strong>CETAM (Centro de Educação Tecnológica do Amazonas)</strong> — instrutor de fotografia aplicada, turmas com mais de 60 alunos cada, em 4 edições consecutivas.</li>
+    <li><strong>CIEEI (Centro Integrado de Educação e Esporte da Infância)</strong> — oficinas de comunicação visual e fotografia pra jovens em formação profissional.</li>
+  </ul>
+  <p>Essa experiência é o que sustenta esta mentoria. Esta formação foi desenhada exatamente assim: 16h estruturadas, com entregáveis reais ao final de cada encontro.</p>
+
+  <!-- ============================================================
+       1.5 PORTFÓLIO
+       Links reais do Pauleandersonn. Não precisa editar.
+       ============================================================ -->
+  <h2>1.5 Portfólio · Onde você pode ver meu trabalho</h2>
+  <p>Antes de ler o resto, dá uma olhada no que já produzi. Tudo público, tudo verificável:</p>
+  <ul>
+    <li><strong>YouTube:</strong> <a href="https://www.youtube.com/@Pauleandersonsouza">youtube.com/@Pauleandersonsouza</a> — vídeos de projetos, aulas e bastidores</li>
+    <li><strong>Site institucional:</strong> <a href="https://pauloanderson.plano.wordpress.com">pauloanderson.plano.wordpress.com</a> — portfólio completo, serviços e cases</li>
+    <li><strong>Instagram pessoal:</strong> <a href="https://www.instagram.com/pauleandersonn/">@pauleandersonn</a> — dia a dia, bastidores, ensaios</li>
+    <li><strong>Instagram de filmes:</strong> <a href="https://www.instagram.com/pauloandersonfilmes/">@pauloandersonfilmes</a> — conteúdo audiovisual, projetos de vídeo</li>
+  </ul>
+  <p>Se preferir conversar antes, meu WhatsApp é (92) 99241-1099.</p>
+
+  <!-- ============================================================
+       2. ENTENDIMENTO DO DESAFIO
+       Edite o parágrafo pra descrever o cliente / contexto.
+       ============================================================ -->
+  <h2>2. Entendimento do desafio</h2>
+  <p>Você quer usar o celular como ferramenta de venda do seu negócio, mas tá travado nas fotos amadoras que não passam confiança. Não precisa de câmera cara — precisa de método, de olhar e de um portfólio que vende por você.</p>
+
+  <!-- ============================================================
+       3. METODOLOGIA
+       Edite as 3-4 etapas do método. Mantenha a estrutura.
+       ============================================================ -->
+  <h2>3. Metodologia</h2>
+  <p>Mentoria prática, individual, baseada em foto real do seu produto. Você traz a câmera (celular), traz o produto, e sai com fotos prontas pra postar.</p>
+
+  <h3>3 pilares práticos</h3>
+  <ul>
+    <li><strong>Olhar.</strong> Desenvolver o olhar fotográfico: composição, luz, enquadramento, ângulo</li>
+    <li><strong>Prática.</strong> Fotografar o SEU produto, no SEU espaço, com a SUA luz</li>
+    <li><strong>Uso.</strong> Curadoria, edição leve, postagem estratégica. O portfólio fica.</li>
+  </ul>
+
+  <!-- ============================================================
+       4. PROGRAMAÇÃO DOS ENCONTROS
+       Tabela com N encontros. Edite as linhas.
+       ============================================================ -->
+  <h2>4. Programação · 8 encontros de 2h</h2>
+  <table>
+    <thead><tr><th>#</th><th>Tema</th><th>H</th><th>Entregável</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Diagnóstico + setup do celular</td><td>2h</td><td>Lista de 10 fotos do produto antes/depois</td></tr>
+      <tr><td>2</td><td>Luz natural e artificial</td><td>2h</td><td>4 fotos do produto com luz controlada</td></tr>
+      <tr><td>3</td><td>Composição e enquadramento</td><td>2h</td><td>Série de 5 fotos com regra dos terços</td></tr>
+      <tr><td>4</td><td>Fundo e cenário</td><td>2h</td><td>Kit de 3 fundos improvisados fotografados</td></tr>
+      <tr><td>5</td><td>Sequência de produto (carrossel)</td><td>2h</td><td>Carrossel de 6 fotos pronto</td></tr>
+      <tr><td>6</td><td>Retratos do autor + produto</td><td>2h</td><td>3 retratos autorais</td></tr>
+      <tr><td>7</td><td>Edição leve no celular</td><td>2h</td><td>Antes/depois de 4 fotos editadas</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ============================================================
+       5. LOGÍSTICA
+       Edite local, datas, formato. Mantém a estrutura de tópicos.
+       ============================================================ -->
+  <h2>5. Logística</h2>
+  <ul>
+    <li><strong>Local:</strong> Online (Google Meet) + 2 encontros presenciais em Manaus</li>
+    <li><strong>Período:</strong> Agosto-Setembro 2026</li>
+    <li><strong>Formato:</strong> 8 sessões individuais de 2h, semanais</li>
+    <li><strong>Público:</strong> Empreendedor(a) que quer usar fotografia pra vender (1 alunas)</li>
+    <li><strong>Material incluso:</strong> apostila digital em PDF, 1 página de portfólio impressa por aluna, grupo de WhatsApp de continuidade por 60 dias.</li>
+  </ul>
+
+  <!-- ============================================================
+       6. SEGURANÇA E IDONEIDADE
+       Padronizado. Não editar — funciona pra qualquer cliente institucional.
+       Se for cliente particular, pode remover essa seção inteira.
+       ============================================================ -->
+  <h2>6. Segurança e idoneidade · Como você se protege nessa parceria</h2>
+  <p>Trabalhar com recursos institucionais exige garantia dos dois lados. Listo abaixo o que está coberto por padrão nesta proposta — sem custo extra:</p>
+  <ul>
+    <li><strong>Contrato formal de prestação de serviço</strong> (1 a 2 páginas), com cronograma, responsabilidades, forma de pagamento e cláusula de rescisão — assinado pelas duas partes antes do primeiro encontro.</li>
+    <li><strong>Emissão de nota fiscal (NF-e de serviço)</strong> pela MCR, com CNPJ ativo. O cliente recebe documento fiscal válido pra prestação de contas.</li>
+    <li><strong>Cláusula de LGPD e direito de imagem</strong> já prevista no contrato: cada aluno (ou responsável) assina termo individual autorizando o uso pedagógico do material produzido.</li>
+    <li><strong>Garantia de cumprimento</strong>: se eu não entregar o programa conforme cronograma acordado, o cliente retém proporcionalmente o último pagamento. Isso está no contrato.</li>
+    <li><strong>Seguro de responsabilidade civil</strong> do instrutor: a confirmar no momento da assinatura, conforme exigência do Cliente Particular.</li>
+    <li><strong>Relatório final de prestação de contas em PDF</strong> ao final do programa, com: lista de presença, fotos autorizadas, portfólios entregues, horas realizadas, saldo de pagamentos.</li>
+  </ul>
+
+  <!-- ============================================================
+       7. INVESTIMENTO
+       3 cenários A/B/C — edite valores, descrições e diferenciais.
+       Pra cliente que não tem orçamento fixo, mantenha os 3 cenários.
+       Pra cliente com 1 valor fechado, use só o bloco .pricebox único.
+       ============================================================ -->
+  <h2>7. Investimento</h2>
+
+  <!-- OPÇÃO 1: 3 cenários -->
+  <p>Os valores abaixo cobrem: <strong>16h de instrução presencial + 12h de preparação + materiais de apoio + 1 página de portfólio impressa por aluna + 60 dias de suporte em grupo de WhatsApp</strong>.</p>
+
+  <div class="pricebox">
+    <div class="eyebrow">Valor único · programa completo</div>
+    <div class="bigprice">R$ 2.400</div>
+    <div class="pricedesc">Pagamento total pelo programa de 8 sessões individuais. Inclui material didático + portfólio impresso.</div>
+  </div>
+
+  <h3>O que está incluso no valor</h3>
+  <ul>
+    <li>16h de instrução presencial (8 encontros)</li>
+    <li>12 horas de preparação de material (apostila, exercícios, modelo de portfólio)</li>
+    <li>Apostila ilustrada em PDF (24 páginas) — enviada por WhatsApp</li>
+    <li>1 página de portfólio impressa por aluna (1 unidades, papel couchê)</li>
+    <li>Grupo de WhatsApp de continuidade por 60 dias</li>
+    <li>Relatório final de prestação de contas em PDF</li>
+    <li>Contrato formal + NF-e + termo de LGPD</li>
+  </ul>
+
+  <h3>O que <em>não</em> está incluso (e pode ser contratado à parte)</h3>
+  <ul>
+    <li>Gravação em vídeo das aulas (orçamento separado, sob demanda)</li>
+    <li>Deslocamento pra cidades fora de Manaus</li>
+    <li>Certificados em papel (o cliente emite os seus; se preferir que eu produza, é orçamento à parte)</li>
+  </ul>
+
+  <h3>Forma de pagamento sugerida</h3>
+  <table>
+    <thead><tr><th>Parcela</th><th>Valor</th><th>Vencimento</th><th>Condição</th></tr></thead>
+    <tbody>
+      <tr><td>1ª</td><td>R$ 800</td><td>Na assinatura do contrato</td><td>Reserva a agenda e inicia preparação</td></tr>
+      <tr><td>2ª</td><td>R$ 800</td><td>Encontro 4</td><td>Confirma continuidade</td></tr>
+      <tr><td>3ª</td><td>R$ 800</td><td>Encontro 8</td><td>Liberada após a entrega final</td></tr>
+    </tbody>
+  </table>
+  <p>Outras condições (à vista com desconto, ou parcelamento diferente) podem ser combinadas na conversa de alinhamento.</p>
+
+  <!-- ============================================================
+       8. DIFERENCIAIS
+       Edite os 3-5 bullets com o que diferencia essa proposta.
+       ============================================================ -->
+  <h2>8. Diferenciais desta proposta</h2>
+  <ul>
+    <li><strong>Individual</strong> — Cada sessão é 100% focada no seu produto e no seu negócio. Nada genérico.</li>
+    <li><strong>Prática real</strong> — Você sai de cada sessão com fotos prontas pra postar.</li>
+    <li><strong>Portfólio ao final</strong> — 8ª sessão termina com 1 página de portfólio impressa e curada.</li>
+    <li><strong>Suporte contínuo</strong> — 60 dias de grupo de WhatsApp pra dúvidas pontuais depois do programa.</li>
+    <li><strong>Idoneidade documental</strong> — NF-e emitida pela MCR (CNPJ ativo), contrato formal e relatório final. Tudo pronto pra auditoria.</li>
+  </ul>
+
+  <!-- ============================================================
+       9. PRÓXIMOS PASSOS
+       Edite o call-to-action. Mantém o tom propositivo.
+       ============================================================ -->
+  <h2>9. Próximos passos (sugestão)</h2>
+  <ol>
+    <li><strong>Confirmação verbal</strong> por WhatsApp até 22 de julho de 2026 — sua decisão ou pedido de ajuste.</li>
+    <li><strong>Assinatura do contrato</strong> + primeira parcela (R$ 800) — trava a agenda e inicia a preparação do material.</li>
+    <li><strong>Alinhamento técnico</strong> (30 min, presencial ou por vídeo) — combinamos local exato, lista de presença e logística do primeiro encontro.</li>
+    <li><strong>Encontro 1</strong> na data combinada — primeira turma + fotos.</li>
+  </ol>
+  <p>Se quiser conversar antes, meu WhatsApp é (92) 99241-1099. Respondo normalmente em horário comercial (Manaus/AM, UTC-4).</p>
+
+  <!-- ============================================================
+       ASSINATURA / SIGN-OFF
+       Não precisa editar — é a identidade fixa do Pauleandersonn.
+       ============================================================ -->
+  <div class="signoff">
+    <div class="who">Pauleandersonn Souza</div>
+    <div class="role">publicitário, fotógrafo e instrutor</div>
+    <div class="role">Mídia Criativa do Reino · MCR</div>
+    <div class="contact">
+      WhatsApp: <a href="https://wa.me/5592992411099">(92) 99241-1099</a><br>
+      YouTube: <a href="https://www.youtube.com/@Pauleandersonsouza">@Pauleandersonsouza</a> ·
+      Instagram: <a href="https://www.instagram.com/pauleandersonn/">@pauleandersonn</a> ·
+      Site: <a href="https://pauloanderson.plano.wordpress.com">pauloanderson.plano.wordpress.com</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

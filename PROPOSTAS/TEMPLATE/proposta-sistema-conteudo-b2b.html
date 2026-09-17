@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<!-- ============================================================
+     TEMPLATE DE PROPOSTA — SISTEMA DE CONTEÚDO EMPRESARIAL (B2B)
+     Oferta recorrente de conteúdo audiovisual para clínicas/empresas.
+     Baseado no template proposta-pauleandersonn.html (mesma identidade).
+
+     COMO USAR:
+     1) cp proposta-sistema-conteudo-b2b.html proposta-CLIENTE.html
+     2) Buscar e substituir os {{PLACEHOLDERS}} (lista no final)
+     3) Gerar PDF: python -m http.server 8000 → Chrome → Ctrl+P → PDF
+     ============================================================ -->
+<title>Proposta — Sistema de Conteúdo Empresarial | {{CLIENTE_NOME}}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  /* ============================================================
+     TOKENS DE MARCA
+     Acento padrão: verde-saúde (clínicas). Troque --accent pra
+     outra cor conforme o cliente (ver README do template anterior).
+     ============================================================ */
+  :root{
+    --ink:#111418;        /* Texto principal (preto suave) */
+    --ink-strong:#1a2027; /* Texto forte (citações, hero) */
+    --paper:#FDFCF8;      /* Fundo claro */
+    --accent:#3A7A6B;     /* Acento — verde água (saúde) */
+    --rule:#E5E1D6;       /* Linhas sutis, bordas de cards */
+    --muted:#272A30;      /* Texto secundário (AA sobre paper) */
+    --soft:#F4F8F6;       /* Fundo do pricebox e destaques */
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:"Georgia","Source Serif Pro",serif;
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.5;
+    font-size:14px;
+  }
+  .wrap{max-width:780px;margin:0 auto;padding:40px 52px;}
+  h1,h2,h3{font-family:"Georgia",serif;letter-spacing:-.01em;margin:0 0 .25em}
+  h1{font-size:36px;line-height:1.08;color:var(--ink);margin-top:6px}
+  h2{font-size:21px;color:var(--ink);margin-top:32px;padding-bottom:6px;border-bottom:1.5px solid var(--accent)}
+  h3{font-size:15px;color:var(--ink);margin-top:16px}
+  p{margin:.5em 0}
+  .eyebrow{
+    font-family:"Helvetica Neue","Arial",sans-serif;
+    text-transform:uppercase;letter-spacing:.18em;font-size:11px;
+    color:var(--accent);font-weight:700;
+  }
+  .hero{
+    background:linear-gradient(180deg,#111418 0%,#1a1f25 100%);
+    color:#FDFCF8;margin:-40px -52px 30px;padding:44px 52px 36px;
+  }
+  .hero .eyebrow{color:var(--accent)}
+  .hero h1{color:#FDFCF8;font-size:38px}
+  .hero p{color:#d6d8db;max-width:600px;font-size:14px}
+  .pill{
+    display:inline-block;padding:3px 10px;border:1px solid rgba(58,122,107,.5);
+    border-radius:999px;color:var(--ink);font-size:11px;
+    font-family:"Helvetica Neue","Arial",sans-serif;
+    letter-spacing:.05em;margin-right:6px;background:rgba(58,122,107,.07);
+  }
+  ul{padding-left:20px;margin:.4em 0}
+  ul li{margin:.25em 0}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-family:"Helvetica Neue","Arial",sans-serif;font-size:12.5px}
+  th{background:var(--soft);text-align:left;padding:8px 10px;border-bottom:1.5px solid var(--ink);font-weight:700;letter-spacing:.02em}
+  td{padding:8px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+  .pricebox{
+    border:1.5px solid var(--ink);border-top:4px solid var(--accent);
+    background:var(--soft);padding:26px 32px;margin:18px 0 20px;text-align:center;
+  }
+  .pricebox .bigprice{
+    font-family:"Georgia",serif;font-size:46px;font-weight:700;
+    color:var(--ink);letter-spacing:-.02em;line-height:1;margin:4px 0 8px;
+  }
+  .pricebox .pricedesc{
+    font-family:"Helvetica Neue","Arial",sans-serif;font-size:12.5px;
+    color:var(--muted);max-width:540px;margin:0 auto;line-height:1.5;
+  }
+  .compare th{background:#F1F5F4}
+  .compare td:first-child{font-weight:700;color:var(--ink)}
+  .ok{color:#2F6B4F;font-weight:700}
+  .no{color:#8A4A4A;font-weight:700}
+  .signoff{
+    margin-top:36px;padding:20px 0 0;border-top:1px solid var(--rule);
+    font-family:"Helvetica Neue","Arial",sans-serif;
+  }
+  .signoff .who{font-size:14px;font-weight:700;color:var(--ink)}
+  .signoff .role{font-size:12px;color:var(--muted);margin-top:2px}
+  .signoff .contact{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.6}
+  .signoff .contact a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--accent)}
+  @media print{
+    body{font-size:11.5px}
+    .wrap{padding:18px 26px}
+    .hero{margin:-18px -26px 20px;padding:26px 26px 20px}
+    h1{font-size:28px}
+    h2{font-size:17px;margin-top:20px}
+    .pricebox .bigprice{font-size:34px}
+    table{font-size:11px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============================================================
+       HERO — edite: {{DATA_PROPOSTA}}, {{CLIENTE_NOME}},
+       {{CLIENTE_CIDADE}}, {{NUM_POSTS}}, {{NUM_DIAS_PRODUCAO}}
+       ============================================================ -->
+  <div class="hero">
+    <div class="eyebrow">PROPOSTA COMERCIAL · {{DATA_PROPOSTA}}</div>
+    <h1>Sistema de Conteúdo Empresarial</h1>
+    <p>Produção mensal de conteúdo profissional para posicionar a <strong>{{CLIENTE_NOME}}</strong>, em {{CLIENTE_CIDADE}}, e transformar presença digital em pacientes e oportunidades — com planejamento, audiovisual, IA e relatório.</p>
+    <p style="margin-top:14px">
+      <span class="pill">{{NUM_POSTS}} posts/mês</span>
+      <span class="pill">{{NUM_DIAS_PRODUCAO}} dias de produção</span>
+      <span class="pill">Relatório mensal</span>
+      <span class="pill">IA + automação</span>
+    </p>
+  </div>
+
+  <!-- ============================================================
+       1. O DESAFIO — preencher com a observação REAL do Instagram
+       (ver protocolo de análise na nota do vault). 2-3 linhas.
+       ============================================================ -->
+  <h2>1. O desafio</h2>
+  <p>{{PARAGRAFO_DESAFIO}}</p>
+
+  <!-- ============================================================
+       2. A SOLUÇÃO — não editar (é o posicionamento da oferta)
+       ============================================================ -->
+  <h2>2. A solução</h2>
+  <p>Um <strong>sistema mensal de comunicação</strong>, não um "pacote de posts". Cada mês tem ciclo completo:</p>
+  <ul>
+    <li><strong>Planejamento</strong> — pautas, roteiros e calendário definidos com você em reunião mensal;</li>
+    <li><strong>Produção audiovisual</strong> — dias de gravação na clínica: vídeos, depoimentos, antes/depois e fotos;</li>
+    <li><strong>Edição e publicação</strong> — conteúdo publicado e agendado por mim;</li>
+    <li><strong>Relatório</strong> — métricas do mês (alcance, interações, agendamentos) com análise.</li>
+  </ul>
+
+  <!-- ============================================================
+       3. O QUE ESTÁ INCLUSO — tabela de entregáveis.
+       Padrão: tier Premium (foco de venda).
+       Para o tier Base: ajuste {{VALOR_MENSAL}} e remova/adapte
+       as linhas marcadas [PREMIUM].
+       ============================================================ -->
+  <h2>3. O que está incluso por mês</h2>
+  <table>
+    <thead><tr><th>Entregável</th><th>Quantidade</th><th>Observação</th></tr></thead>
+    <tbody>
+      <tr><td>Dia(s) de produção na clínica</td><td>{{NUM_DIAS_PRODUCAO}} ({{HORAS_PRODUCAO}}h)</td><td>Vídeos, depoimentos, antes/depois, fotos</td></tr>
+      <tr><td>Vídeos curtos (Reels)</td><td>{{NUM_REELS}}</td><td>Edição profissional + legendas automáticas</td></tr>
+      <tr><td>Posts de feed / carrosséis</td><td>{{NUM_CARROSSEIS}}</td><td>Design padronizado com a identidade da clínica</td></tr>
+      <tr><td>Stories</td><td>{{NUM_STORIES}}/semana</td><td>Conteúdo do dia a dia</td></tr>
+      <tr><td>Roteiros e pautas mensais</td><td>{{NUM_ROTEIROS}}</td><td>Gerados com IA e validados por mim</td></tr>
+      <tr><td>Vídeo de depoimento/institucional</td><td>{{NUM_DEPOIMENTOS}} [PREMIUM]</td><td>Prova social em vídeo</td></tr>
+      <tr><td>Gestão de comentários e DM</td><td>Respostas automáticas [PREMIUM]</td><td>IA + minha supervisão</td></tr>
+      <tr><td>Pauta de anúncio + otimização Meta Ads</td><td>1/mês [PREMIUM]</td><td>Veiculação paga à parte pelo cliente</td></tr>
+      <tr><td>Reunião estratégica mensal</td><td>1 (30–60 min)</td><td>Alinhamento e calendário do mês</td></tr>
+      <tr><td>Relatório mensal de métricas</td><td>1</td><td>Alcance, interações, agendamentos</td></tr>
+      <tr><td>Canais</td><td>Instagram + Facebook</td><td>—</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ============================================================
+       4. INVESTIMENTO — edite {{VALOR_MENSAL}} e condições se preciso.
+       ============================================================ -->
+  <h2>4. Investimento</h2>
+  <div class="pricebox">
+    <div class="eyebrow">Mensalidade · prazo mínimo 3 meses</div>
+    <div class="bigprice">{{VALOR_MENSAL}}<span style="font-size:18px">/mês</span></div>
+    <div class="pricedesc">Tudo o que está na tabela acima, entregue todos os meses. Pagamento até o dia 5, renovação automática mensal após o 3º mês. Sem taxa de fidelidade, sem surpresa.</div>
+  </div>
+
+  <!-- ============================================================
+       5. COMPARAÇÃO CLT — o argumento central. NÃO editar os números
+       (encargos CLT ≈ 1,75×–2× o salário no Brasil).
+       ============================================================ -->
+  <h2>5. Por que não contratar um funcionário?</h2>
+  <p>Uma comparação honesta — você pode contratar um CLT de social media por R$1.600. Veja o que realmente custa e o que ele entrega:</p>
+  <table class="compare">
+    <thead>
+      <tr><th style="width:26%">Item</th><th style="width:37%">Funcionário CLT (R$1.600)</th><th style="width:37%">Sistema de Conteúdo (esta proposta)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Custo mensal real</td><td class="no">R$2.800–3.200 (salário + 13º, férias, FGTS, INSS, VT/VR)</td><td class="ok">{{VALOR_MENSAL}} fixo, sem surpresa</td></tr>
+      <tr><td>Equipamento profissional</td><td class="no">A clínica compra (R$10–30 mil) ou usa celular</td><td class="ok">Incluso</td></tr>
+      <tr><td>Softwares de edição</td><td class="no">A clínica paga</td><td class="ok">Incluso</td></tr>
+      <tr><td>Planejamento e estratégia</td><td class="no">Executa ordens — você decide tudo</td><td class="ok">Reunião mensal + calendário + roteiros</td></tr>
+      <tr><td>IA, automação e relatório</td><td class="no">Não</td><td class="ok">Sim — roteiros, legendas, métricas</td></tr>
+      <tr><td>Gestão do dono</td><td class="no">Você vira gerente de social media</td><td class="ok">Zero — sistema pronto</td></tr>
+      <tr><td>Férias, afastamento, rotatividade</td><td class="no">Produção para; risco da clínica</td><td class="ok">Entrega garantida todos os meses</td></tr>
+      <tr><td>Qualidade audiovisual</td><td class="no">Depende do contratado</td><td class="ok">Portfólio premium comprovado</td></tr>
+    </tbody>
+  </table>
+  <p>Resumo: <strong>o funcionário sai mais caro, exige gestão do seu tempo e entrega menos.</strong> Você não contrata horas — contrata um sistema com resultado.</p>
+
+  <!-- ============================================================
+       6. PRÓXIMOS PASSOS — edite {{DATA_LIMITE}}
+       ============================================================ -->
+  <h2>6. Próximos passos</h2>
+  <ol>
+    <li><strong>Diagnóstico gratuito</strong> — analiso a presença digital atual da clínica e mando em até 48h;</li>
+    <li><strong>Alinhamento</strong> — reunião de 30 min para fechar escopo e calendário do 1º mês;</li>
+    <li><strong>Contrato</strong> — 3 meses de prazo mínimo, pagamento até dia 5;</li>
+    <li><strong>Início</strong> — 1º dia de produção na clínica.</li>
+  </ol>
+  <p>Confirmação por WhatsApp até <strong>{{DATA_LIMITE}}</strong>. Se preferir conversar antes, estou disponível.</p>
+
+  <!-- ============================================================
+       ASSINATURA — identidade fixa (editar só se mudar de marca)
+       ============================================================ -->
+  <div class="signoff">
+    <div class="who">Pauleandersonn Souza</div>
+    <div class="role">Publicitário · Fotógrafo · Produtor audiovisual</div>
+    <div class="contact">
+      WhatsApp: <a href="https://wa.me/{{WHATSAPP_NUMERO}}">{{WHATSAPP}}</a><br>
+      Instagram: <a href="https://www.instagram.com/pauleandersonn/">@pauleandersonn</a> ·
+      Portfólio: <a href="https://pauloanderson.plano.wordpress.com">pauloanderson.plano.wordpress.com</a>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       LISTA DE PLACEHOLDERS (Buscar → Substituir todos)
+       {{DATA_PROPOSTA}}         → ex: 18 de agosto de 2026
+       {{CLIENTE_NOME}}          → nome da clínica
+       {{CLIENTE_CIDADE}}        → ex: Manaus/AM
+       {{NUM_POSTS}}             → 16 (premium) ou 12 (base)
+       {{NUM_DIAS_PRODUCAO}}     → 2 (premium) ou 1 (base)
+       {{HORAS_PRODUCAO}}        → 8–12 (premium) ou 4–6 (base)
+       {{PARAGRAFO_DESAFIO}}     → observação real do Instagram
+       {{NUM_REELS}}             → 8 (premium) ou 4 (base)
+       {{NUM_CARROSSEIS}}        → 4 (premium) ou 4 (base)
+       {{NUM_STORIES}}           → 3 (premium) ou 2 (base)
+       {{NUM_ROTEIROS}}          → 4
+       {{NUM_DEPOIMENTOS}}       → 1 (premium); apagar linha se base
+       {{VALOR_MENSAL}}          → R$ 2.497 (premium) ou R$ 1.497 (base)
+       {{DATA_LIMITE}}           → ex: 25 de agosto de 2026
+       {{WHATSAPP}}              → (92) 99241-1099
+       {{WHATSAPP_NUMERO}}       → 5592992411099
+       ============================================================ -->
+</div>
+</body>
+</html>

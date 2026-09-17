@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pauleanderson CRM</title>
+<style>
+:root{--bg:#f5f3ef;--card:#fff;--ink:#10243e;--muted:#6d7480;--line:#e5e1da;--gold:#b88a2a;--green:#287a55;--red:#b54a4a;--blue:#315d91}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+.app{display:flex;min-height:100vh}.side{width:245px;background:#10243e;color:white;padding:24px 16px;position:fixed;inset:0 auto 0 0}
+.brand{font-size:21px;font-weight:800;margin:0 8px 4px}.sub{font-size:11px;color:#bfc9d5;margin:0 8px 28px}
+.nav button{display:block;width:100%;border:0;background:transparent;color:#dce4ed;text-align:left;padding:12px 14px;border-radius:9px;margin:3px 0;cursor:pointer;font-size:14px}
+.nav button.active,.nav button:hover{background:#1c3859;color:#fff}
+.main{margin-left:245px;width:calc(100% - 245px);padding:28px;max-width:1600px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.title h1{margin:0;font-size:28px}
+.title p{margin:6px 0 0;color:var(--muted);font-size:14px}
+.actions{display:flex;gap:8px}
+.btn{border:0;border-radius:8px;padding:11px 15px;cursor:pointer;font-weight:700}
+.primary{background:var(--ink);color:#fff}
+.secondary{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+.metric{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
+.metric span{font-size:12px;color:var(--muted)}
+.metric strong{display:block;font-size:26px;margin-top:7px}
+.metric small{color:var(--green)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:18px}
+.panel h2{font-size:16px;margin:0 0 15px}
+.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:15px}
+.input,.select{border:1px solid var(--line);border-radius:8px;padding:10px;background:#fff;color:var(--ink)}
+.input{min-width:220px}
+.kanban{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;overflow:auto}
+.column{background:#f7f6f3;border-radius:10px;padding:10px;min-height:250px}
+.column h3{font-size:12px;margin:2px 2px 10px;color:var(--muted);text-transform:uppercase}
+.deal{background:#fff;border:1px solid var(--line);border-radius:9px;padding:12px;margin-bottom:8px;cursor:pointer}
+.deal strong{font-size:13px;display:block}
+.deal small{display:block;color:var(--muted);margin-top:4px}
+.tag{display:inline-block;background:#eeeae3;padding:4px 7px;border-radius:20px;font-size:10px;margin-top:8px}
+.money{font-weight:800;margin-top:8px}
+.table{width:100%;border-collapse:collapse;font-size:13px}
+.table th,.table td{padding:12px 8px;border-bottom:1px solid var(--line);text-align:left}
+.table th{font-size:11px;color:var(--muted);text-transform:uppercase}
+.status{padding:5px 8px;border-radius:20px;background:#eee;font-size:11px}
+.green{background:#e4f2ea;color:#236946}
+.yellow{background:#f8efd7;color:#8b6817}
+.red{background:#f7e3e3;color:#8f3535}
+.hidden{display:none}
+.modal{position:fixed;inset:0;background:#0008;display:flex;align-items:center;justify-content:center;padding:20px}
+.modalbox{background:white;border-radius:14px;width:min(650px,100%);padding:24px}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field label{display:block;font-size:11px;color:var(--muted);margin-bottom:5px}
+.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:10px}
+.field textarea{min-height:90px}
+.full{grid-column:1/-1}
+.modalfoot{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+.empty{padding:30px;text-align:center;color:var(--muted);font-size:13px}
+.badge{display:inline-block;background:#eeeae3;padding:2px 6px;border-radius:12px;font-size:10px;margin-left:4px}
+@media(max-width:1000px){.side{width:70px}.brand,.sub{display:none}.main{margin-left:70px;width:calc(100% - 70px)}.nav button{font-size:0;text-align:center}.nav button:first-letter{font-size:18px}.grid{grid-template-columns:repeat(2,1fr)}.kanban{grid-template-columns:repeat(3,230px)}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side">
+  <div class="brand">PAULEANDERSON</div><div class="sub">CRM • PRODUTORA AUDIOVISUAL</div>
+  <nav class="nav">
+    <button class="active" onclick="show('dashboard',this)">⌂ Dashboard</button>
+    <button onclick="show('pipeline',this)">◈ Pipeline</button>
+    <button onclick="show('leads',this)">◎ Leads & Clientes</button>
+    <button onclick="show('projetos',this)">▣ Projetos</button>
+    <button onclick="show('financeiro',this)">R$ Financeiro</button>
+    <button onclick="show('posvenda',this)">🔁 Pós-venda</button>
+  </nav>
+</aside>
+<main class="main">
+<section id="dashboard">
+ <div class="top"><div class="title"><h1>Visão geral</h1><p>Seu comercial em um único lugar.</p></div><div class="actions"><button class="btn secondary" onclick="exportData()">Exportar</button><button class="btn primary" onclick="openClientModal()">+ Novo cliente/lead</button></div></div>
+ <div class="grid">
+  <div class="metric"><span>Pipeline aberto</span><strong id="mPipeline">R$ 0</strong><small id="mDeals">0 oportunidades</small></div>
+  <div class="metric"><span>Fechados no mês</span><strong id="mWon">R$ 0</strong><small>receita contratada</small></div>
+  <div class="metric"><span>Follow-ups hoje</span><strong id="mFollow">0</strong><small>não deixe oportunidades morrerem</small></div>
+  <div class="metric"><span>Meta mensal</span><strong>R$ 10.000</strong><small id="mGoal">0% atingido</small></div>
+ </div>
+ <div class="panel"><h2>Funil comercial</h2><div id="dashKanban" class="kanban"></div></div>
+ <div class="panel"><h2>Próximas ações</h2><div id="actionsList"></div></div>
+</section>
+
+<section id="pipeline" class="hidden">
+ <div class="top"><div class="title"><h1>Pipeline</h1><p>Da primeira conversa ao contrato.</p></div><button class="btn primary" onclick="openClientModal()">+ Novo lead</button></div>
+ <div class="panel"><div class="toolbar"><input class="input" id="search" placeholder="Buscar empresa, pessoa ou projeto..." oninput="render()"><select class="select" id="filterType" onchange="render()"><option value="">Todos os serviços</option><option>Vídeo corporativo</option><option>Conteúdo mensal</option><option>Evento</option><option>Casamento</option><option>Fotografia</option><option>Podcast</option></select></div><div id="pipeKanban" class="kanban"></div></div>
+</section>
+
+<section id="leads" class="hidden">
+ <div class="top"><div class="title"><h1>Leads & Clientes</h1><p>Relacionamento, histórico e próximos passos.</p></div><button class="btn primary" onclick="openClientModal()">+ Novo contato</button></div>
+ <div class="panel"><div class="toolbar"><input class="input" placeholder="Buscar..." oninput="tableSearch(this.value)"></div><table class="table"><thead><tr><th>Contato</th><th>Empresa</th><th>Serviço</th><th>Etapa</th><th>Valor</th><th>Próxima ação</th><th>Ações</th></tr></thead><tbody id="leadTable"></tbody></table></div>
+</section>
+
+<section id="projetos" class="hidden">
+ <div class="top"><div class="title"><h1>Projetos</h1><p>Operação depois da venda.</p></div></div>
+ <div class="panel"><h2>Checklist operacional</h2><table class="table"><thead><tr><th>Projeto</th><th>Cliente</th><th>Serviço</th><th>Status</th><th>Entrega prevista</th><th>Ações</th></tr></thead><tbody id="projectTable"></tbody></table></div>
+</section>
+
+<section id="financeiro" class="hidden">
+ <div class="top"><div class="title"><h1>Financeiro</h1><p>Contratado, recebido e a receber.</p></div></div>
+ <div class="grid">
+  <div class="metric"><span>Contratado</span><strong id="fContracted">R$ 0</strong></div>
+  <div class="metric"><span>Recebido</span><strong id="fReceived">R$ 0</strong></div>
+  <div class="metric"><span>A receber</span><strong id="fReceivable">R$ 0</strong></div>
+  <div class="metric"><span>Meta</span><strong>R$ 10 mil</strong></div>
+ </div>
+ <div class="panel"><h2>Lançamentos financeiros</h2><table class="table"><thead><tr><th>Data</th><th>Cliente</th><th>Descrição</th><th>Valor</th><th>Tipo</th><th>Status</th></tr></thead><tbody id="financeTable"></tbody></table></div>
+</section>
+
+<section id="posvenda" class="hidden">
+ <div class="top"><div class="title"><h1>Pós-venda & Recorrência</h1><p>Depoimentos, indicações, recompra e renovação.</p></div></div>
+ <div class="panel"><h2>Próximas ações de pós-venda</h2><div id="posActionsList"></div></div>
+ <div class="panel"><h2>Indicações & Depoimentos</h2><table class="table"><thead><tr><th>Cliente</th><th>Tipo</th><th>Status</th><th>Próxima ação</th></tr></thead><tbody id="posTable"></tbody></table></div>
+</section>
+
+</main>
+</div>
+
+<div id="clientModal" class="modal hidden">
+<div class="modalbox"><h2 id="modalTitle">Novo lead</h2>
+<div class="formgrid">
+<div class="field"><label>Nome</label><input id="fName" placeholder="Ex.: João Silva"></div>
+<div class="field"><label>Empresa / casal</label><input id="fCompany" placeholder="Ex.: Instituto RG"></div>
+<div class="field"><label>WhatsApp</label><input id="fPhone" placeholder="(92) 99999-9999"></div>
+<div class="field"><label>Serviço</label><select id="fService"><option>Conteúdo mensal</option><option>Vídeo corporativo</option><option>Evento</option><option>Casamento</option><option>Fotografia</option><option>Podcast</option></select></div>
+<div class="field"><label>Valor estimado</label><input id="fValue" type="number" placeholder="2500"></div>
+<div class="field"><label>Próxima ação</label><input id="fNext" type="date"></div>
+<div class="field"><label>Etapa atual</label><select id="fStage"><option value="new">Novo lead</option><option value="contact">Contato feito</option><option value="diagnostic">Diagnóstico</option><option value="proposal">Proposta</option><option value="negotiation">Negociação</option><option value="won">Fechado</option></select></div>
+<div class="field full"><label>Observações</label><textarea id="fNotes" placeholder="Necessidade, contexto, objeção, decisão..."></textarea></div>
+</div>
+<div class="modalfoot"><button class="btn secondary" onclick="closeModal()">Cancelar</button><button class="btn primary" onclick="saveLead()">Salvar lead</button></div>
+</div></div>
+
+<div id="projectModal" class="modal hidden">
+<div class="modalbox"><h2>Novo projeto</h2>
+<div class="formgrid">
+<div class="field"><label>Cliente</label><input id="pClient" readonly></div>
+<div class="field"><label>Serviço</label><input id="pService" readonly></div>
+<div class="field"><label>Data de início</label><input id="pStart" type="date"></div>
+<div class="field"><label>Data de entrega prevista</label><input id="pEnd" type="date"></div>
+<div class="field"><label>Status</label><select id="pStatus"><option>Briefing</option><option>Pré-produção</option><option>Gravação</option><option>Edição</option><option>Aprovação</option><option>Entrega</option></select></div>
+<div class="field full"><label>Briefing / requisitos</label><textarea id="pNotes" placeholder="Objetivos, entregáveis, prazos..." /></div>
+</div>
+<div class="modalfoot"><button class="btn secondary" onclick="closeProjectModal()">Cancelar</button><button class="btn primary" onclick="saveProject()">Criar projeto</button></div>
+</div></div>
+
+<div id="financeModal" class="modal hidden">
+<div class="modalbox"><h2>Lançamento financeiro</h2>
+<div class="formgrid">
+<div class="field"><label>Cliente</label><input id="fiClient" readonly></div>
+<div class="field"><label>Descrição</label><input id="fiDesc" placeholder="Ex.: Entrada, Parcela 1, etc."></div>
+<div class="field"><label>Valor (R$)</label><input id="fiValue" type="number" step="0.01" min="0"></div>
+<div class="field"><label>Tipo</label><select id="fiType"><option>Entrada</option><option>Parcela</option><option>Desconto</option><option>Multa</option></select></div>
+<div class="field"><label>Data de vencimento</label><input id="fiDue" type="date"></div>
+<div class="field"><label>Data de pagamento</label><input id="fiPaid" type="date"></div>
+<div class="field"><label>Status</label><select id="fiStatus"><option>A receber</option><option>Pago</option><option>Vencido</option></select></div>
+<div class="field full"><label>Observações</label><textarea id="fiNotes" placeholder="Observações..." /></div>
+</div>
+<div class="modalfoot"><button class="btn secondary" onclick="closeFinanceModal()">Cancelar</button><button class="btn primary" onclick="saveFinance()">Salvar lançamento</button></div>
+</div></div>
+
+<script>
+const stages=[['Novo lead','new'],['Contato feito','contact'],['Diagnóstico','diagnostic'],['Proposta','proposal'],['Negociação','negotiation'],['Fechado','won']];
+let data=JSON.parse(localStorage.getItem('pauCRM')||'null')||[
+ {id:1,name:'Instituto RG',company:'Instituto RG',phone:'',service:'Conteúdo mensal',value:2500,next:'2026-09-18',stage:'contact',notes:'Conteúdo recorrente.'},
+ {id:2,name:'Monike e Gustavo',company:'Casamento',phone:'',service:'Casamento',value:7497,next:'2026-09-20',stage:'proposal',notes:'Filme documental.'},
+ {id:3,name:'Empresa exemplo',company:'Empresa exemplo',phone:'',service:'Vídeo corporativo',value:3500,next:'2026-09-17',stage:'diagnostic',notes:'Primeiro contato.'}
+];
+let projects=JSON.parse(localStorage.getItem('pauProjects')||'null')||[];
+let finances=JSON.parse(localStorage.getItem('pauFinances')||'null')||[];
+let posActions=JSON.parse(localStorage.getItem('pauPos')||'null')||[];
+
+function money(v){return Number(v||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0})}
+function save(){localStorage.setItem('pauCRM',JSON.stringify(data));localStorage.setItem('pauProjects',JSON.stringify(projects));localStorage.setItem('pauFinances',JSON.stringify(finances));localStorage.setItem('pauPos',JSON.stringify(posActions));}
+function show(id,btn){document.querySelectorAll('main section').forEach(s=>s.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');render();}
+function openClientModal(){document.getElementById('modalTitle').textContent='Novo lead';document.getElementById('clientModal').classList.remove('hidden');document.getElementById('fNext').value=new Date().toISOString().slice(0,10);document.getElementById('fStage').value='new';['fName','fCompany','fPhone','fValue','fNotes'].forEach(x=>document.getElementById(x).value='');}
+function closeModal(){document.getElementById('clientModal').classList.add('hidden')}
+function saveLead(){
+ const lead={id:Date.now(),name:fName.value.trim()||'Sem nome',company:fCompany.value.trim()||'Não informado',phone:fPhone.value,service:fService.value,value:Number(fValue.value||0),next:fNext.value,stage:fStage.value,notes:fNotes.value};
+ data.push(lead);save();closeModal();['fName','fCompany','fPhone','fValue','fNext','fNotes','fStage'].forEach(x=>document.getElementById(x).value='');render();
+}
+function openProjectModal(clientId){
+ const client=data.find(d=>d.id===clientId);
+ document.getElementById('pClient').value=client.name;
+ document.getElementById('pClient').dataset.id = clientId;
+ document.getElementById('pService').value=client.service;
+ document.getElementById('pStart').value=new Date().toISOString().slice(0,10);
+ document.getElementById('pEnd').value='';
+ document.getElementById('pStatus').value='Briefing';
+ document.getElementById('pNotes').value='';
+ document.getElementById('projectModal').classList.remove('hidden');
+}
+function closeProjectModal(){document.getElementById('projectModal').classList.add('hidden')}
+function saveProject(){
+ const proj={id:Date.now(),clientId:Number(pClient.dataset.id||0),clientName:pClient.value,service:pService.value,start:pStart.value,end:pEnd.value,status:pStatus.value,notes:pNotes.value};
+ projects.push(proj);save();closeProjectModal();render();
+}
+function openFinanceModal(clientId){
+ const client=data.find(d=>d.id===clientId);
+ document.getElementById('fiClient').value=client.name;
+ document.getElementById('fiClient').dataset.id=clientId;
+ document.getElementById('fiDesc').value='';
+ document.getElementById('fiValue').value='';
+ document.getElementById('fiType').value='Entrada';
+ document.getElementById('fiDue').value='';
+ document.getElementById('fiPaid').value='';
+ document.getElementById('fiStatus').value='A receber';
+ document.getElementById('fiNotes').value='';
+ document.getElementById('financeModal').classList.remove('hidden');
+}
+function closeFinanceModal(){document.getElementById('financeModal').classList.add('hidden')}
+function saveFinance(){
+ const fin={id:Date.now(),clientId:Number(fiClient.dataset.id||0),clientName:fiClient.value,desc:fiDesc.value,value:Number(fiValue.value||0),type:fiType.value,due:fiDue.value,paid:fiPaid.value,status:fiStatus.value,notes:fiNotes.value};
+ finances.push(fin);save();closeFinanceModal();render();
+}
+function openPosModal(clientId){
+ // placeholder for future
+}
+function render(){
+ const q=(document.getElementById('search')?.value||'').toLowerCase(), ft=document.getElementById('filterType')?.value||'';
+ const filtered=data.filter(x=>(!q||`${x.name} ${x.company} ${x.service}`.toLowerCase().includes(q))&&(!ft||x.service===ft));
+ ['dashKanban','pipeKanban'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=stages.map(([label,key])=>`<div class=\"column\"><h3>${label} <span>(${filtered.filter(x=>x.stage===key).length})</span></h3>${filtered.filter(x=>x.stage===key).map(card).join('')||'<div style=\"color:#aaa;font-size:11px;padding:8px\">vazio</div>'}</div>`).join('')});
+ const open=data.filter(x=>x.stage!=='won').reduce((s,x)=>s+x.value,0),won=data.filter(x=>x.stage==='won').reduce((s,x)=>s+x.value,0),today=new Date().toISOString().slice(0,10),follow=data.filter(x=>x.next===today&&x.stage!=='won').length;
+ document.getElementById('mPipeline').textContent=money(open);document.getElementById('mDeals').textContent=`${data.filter(x=>x.stage!=='won').length} oportunidades`;
+ document.getElementById('mWon').textContent=money(won);document.getElementById('mFollow').textContent=follow;document.getElementById('mGoal').textContent=Math.round(won/10000*100)+'% atingido';
+ document.getElementById('fContracted').textContent=money(won);document.getElementById('fReceivable').textContent=money(won); // simplistic
+ document.getElementById('leadTable').innerHTML=data.map(x=>`<tr><td><b>${x.name}</b><br><small>${x.phone||''}</small></td><td>${x.company}</td><td>${x.service}</td><td><span class=\"status ${x.stage==='won'?'green':x.stage==='proposal'?'yellow':''}\">${stages.find(s=>s[1]===x.stage)[0]}</span></td><td>${money(x.value)}</td><td>${x.next||'—'}</td><td><div class=\"toolbar\" style=\"gap:4px\"><button class=\"btn secondary\" onclick=\"openProjectModal(${x.id})\">+ Projeto</button><button class=\"btn secondary\" onclick=\"openFinanceModal(${x.id})\">+ Financeiro</button><button class=\"btn secondary\" onclick=\"openPosModal(${x.id})\">Pós-venda</button></div></td></tr>`).join('');
+ document.getElementById('projectTable').innerHTML=projects.map(p=>`<tr><td>${p.service}</td><td>${p.clientName}</td><td>${p.service}</td><td><span class=\"status ${p.status==='Entrega'?'green':p.status==='Aprovação'?'yellow':''}\">${p.status}</span></td><td>${p.end||'—'}</td><td><div class=\"toolbar\" style=\"gap:4px\"><button class=\"btn secondary\" onclick=\"alert('Detalhes do projeto')\">👁️</button></div></td></tr>`).join('')||'<tr><td colspan=\"6\" class=\"empty\">Nenhum projeto criado ainda.</td></tr>';
+ document.getElementById('financeTable').innerHTML=finances.map(f=>`<tr><td>${f.due||'—'}</td><td>${f.clientName}</td><td>${f.desc}</td><td>${money(f.value)}</td><td>${f.type}</td><td><span class=\"status ${f.status==='Pago'?'green':f.status==='Vencido'?'red':'yellow'}\">${f.status}</span></td></tr>`).join('')||'<tr><td colspan=\"6\" class=\"empty\">Nenhum lançamento financeiro.</td></tr>';
+ document.getElementById('posActionsList').innerHTML='<div class=\"empty\">Próximas ações de pós-venda (a implementar)</div>';
+ document.getElementById('posTable').innerHTML='<div class=\"empty\">Indicações e depoimentos (a implementar)</div>';
+ document.getElementById('actionsList').innerHTML=data.filter(x=>x.stage!=='won').sort((a,b)=>(a.next||'9999').localeCompare(b.next||'9999')).slice(0,6).map(x=>`<div style=\"display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--line)\"><span><b>${x.name}</b> · ${x.service}</span><span>${x.next||'Sem data'} · ${money(x.value)}</span></div>`).join('')||'<div class=\"empty\">Nenhuma ação pendente.</div>';
+}
+function card(x){return `<div class=\"deal\" onclick=\"moveDeal(${x.id})\"><strong>${x.name}</strong><small>${x.company} · ${x.service}</small><div class=\"money\">${money(x.value)}</div><span class=\"tag\">${x.next||'sem follow-up'}</span></div>`}
+function moveDeal(id){const x=data.find(d=>d.id===id);let i=stages.findIndex(s=>s[1]===x.stage);if(i<stages.length-1){x.stage=stages[i+1][1];save();render()}else if(confirm('Marcar este cliente como oportunidade aberta novamente?')){x.stage='proposal';save();render()}}
+function tableSearch(q){document.querySelectorAll('#leadTable tr').forEach(r=>r.style.display=r.innerText.toLowerCase().includes(q.toLowerCase())?'':'none')}
+function exportData(){const blob=new Blob([JSON.stringify({data,projects,finances,posActions},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='pauleanderson_crm_backup.json';a.click()}
+render();
+</script>
+</body>
+</html>

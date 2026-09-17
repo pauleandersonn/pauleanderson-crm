@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Proposta — Formação Fotografia da Mulher Empreendedora | Pauleandersonn Souza</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{
+    --ink:#111418;
+    --ink-strong:#1a2027;
+    --paper:#FDFCF8;
+    --gold:#A07F3A;
+    --rule:#E5E1D6;
+    --muted:#272A30;
+    --soft:#FAF8F0;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family: "Georgia", "Source Serif Pro", serif;
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.55;
+    font-size:15px;
+  }
+  .wrap{max-width:780px;margin:0 auto;padding:48px 56px;}
+  h1,h2,h3,h4{font-family:"Georgia",serif;letter-spacing:-.01em;margin:0 0 .3em}
+  h1{font-size:38px;line-height:1.05;color:var(--ink);margin-top:8px}
+  h2{font-size:26px;color:var(--ink);margin-top:48px;padding-bottom:8px;border-bottom:1.5px solid var(--gold)}
+  h3{font-size:16px;color:var(--ink);margin-top:24px}
+  p{margin:.6em 0}
+  .eyebrow{
+    font-family:"Helvetica Neue","Arial",sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.18em;
+    font-size:11px;
+    color:var(--gold);
+    font-weight:700;
+  }
+  .meta{
+    font-family:"Helvetica Neue","Arial",sans-serif;
+    font-size:12px;color:var(--muted);
+    margin-top:4px;letter-spacing:.02em;
+  }
+  .hero{
+    background:linear-gradient(180deg,#111418 0%, #1a1f25 100%);
+    color:#FDFCF8;
+    margin:-48px -56px 36px;
+    padding:56px 56px 44px;
+  }
+  .hero .eyebrow{color:var(--gold)}
+  .hero h1{color:#FDFCF8;font-size:42px}
+  .hero p{color:#d6d8db;max-width:560px;font-size:15px}
+  .pill{
+    display:inline-block;padding:4px 10px;border:1px solid rgba(160,127,58,.4);
+    border-radius:999px;color:var(--ink);font-size:11px;
+    font-family:"Helvetica Neue","Arial",sans-serif;
+    letter-spacing:.06em;margin-right:6px;
+    background:rgba(160,127,58,.06);
+  }
+  ul{padding-left:20px}
+  ul li{margin:.3em 0}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:18px 0 8px}
+  .card{
+    border:1px solid var(--rule);border-top:3px solid var(--gold);
+    padding:18px 16px;background:#fff;
+    font-family:"Helvetica Neue","Arial",sans-serif;
+  }
+  .card.alt{border-top-color:var(--ink)}
+  .card.alt2{border-top-color:var(--ink)}
+  .card .price{
+    font-size:26px;font-weight:700;color:var(--ink);margin:6px 0 2px;
+    letter-spacing:-.02em;
+  }
+  .card .price small{font-size:13px;font-weight:400;color:var(--muted)}
+  .card .desc{font-size:13px;color:var(--muted);line-height:1.5}
+  .card .items{font-size:13px;color:var(--ink);margin-top:12px;padding-left:0;list-style:none}
+  .card .items li{padding:4px 0;border-top:1px dashed var(--rule)}
+  .card .items li:first-child{border-top:none}
+  .pricebox{
+    border:1.5px solid var(--ink);
+    border-top:4px solid var(--ink);
+    background:var(--soft);
+    padding:32px 36px;
+    margin:24px 0 28px;
+    text-align:center;
+  }
+  .pricebox .eyebrow{color:var(--gold);margin-bottom:8px}
+  .pricebox .bigprice{
+    font-family:"Georgia",serif;
+    font-size:54px;
+    font-weight:700;
+    color:var(--ink);
+    letter-spacing:-.02em;
+    line-height:1;
+    margin:4px 0 10px;
+  }
+  .pricebox .pricedesc{
+    font-family:"Helvetica Neue","Arial",sans-serif;
+    font-size:13px;
+    color:var(--muted);
+    max-width:520px;
+    margin:0 auto;
+    line-height:1.5;
+  }
+  .crta{
+    border-left:3px solid var(--gold);
+    padding:10px 18px;color:var(--ink-strong);font-style:italic;
+    background:#F7F4EA;
+    margin:20px 0;
+    font-size:15px;
+  }
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-family:"Helvetica Neue","Arial",sans-serif;font-size:13px}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+  th{background:#FAF8F0;color:var(--ink);font-weight:700;text-transform:uppercase;font-size:11px;letter-spacing:.06em}
+  tr.sub td{background:#FAF8F0;font-weight:700}
+  .signoff{margin-top:48px;font-family:"Helvetica Neue","Arial",sans-serif;font-size:13px;color:var(--muted)}
+  .signoff .name{color:var(--ink);font-weight:700;font-size:16px;font-family:"Georgia",serif}
+  footer{margin-top:36px;padding-top:18px;border-top:1px solid var(--rule);font-family:"Helvetica Neue","Arial",sans-serif;font-size:11px;color:var(--muted);letter-spacing:.04em;text-align:center}
+  .footer-tag{color:var(--gold);font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+  @media print{
+    body{font-size:12px}
+    .wrap{padding:24px 32px}
+    .hero{margin:-24px -32px 24px;padding:36px 32px}
+    h1{font-size:30px}
+    h2{font-size:20px}
+    .card{break-inside:avoid}
+    table{break-inside:auto}
+    tr,td{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow">Proposta Comercial · 07 de julho de 2026</div>
+    <h1>Formação Fotografia da Mulher Empreendedora</h1>
+    <p>Programa de 40 horas em 7 encontros práticos, do celular ao portfólio — pensado para mulheres em situação de vulnerabilidade que já empreendem ou querem empreender.</p>
+    <p style="margin-top:14px"><span class="pill">Carga: 40h</span><span class="pill">7 encontros</span><span class="pill">60 alunas</span><span class="pill">2026</span></p>
+  </div>
+
+  <h2>1. Apresentação</h2>
+  <p>Meu nome é <strong>Pauleandersonn Souza</strong> — publicitário, fotógrafo e instrutor. Sou fundador da Mídia Criativa do Reino (MCR), em Manaus/AM, e há mais de 6 anos ministro aulas de fotografia e comunicação visual pra públicos em formação inicial.</p>
+
+  <div class="crta">"O celular é o único estúdio que elas já têm. A formação existe pra transformar esse estúdio em ferramenta de trabalho."</div>
+
+  <h3>Base de experiência comprovada</h3>
+  <p>Ao longo da minha trajetória, já passaram pelas minhas aulas <strong>mais de 1.000 alunos</strong> — entre turmas de formação inicial, oficinas livres e cursos institucionalizados. Duas instituições de destaque:</p>
+  <ul>
+    <li><strong>CETAM (Centro de Educação Tecnológica do Amazonas)</strong> — instrutor de fotografia aplicada, turmas com mais de 60 alunos cada, em 4 edições consecutivas. Carga horária total acumulada acima de 240h só nessa frente.</li>
+    <li><strong>CIEEI (Centro Integrado de Educação e Esporte da Infância)</strong> — oficinas de comunicação visual e fotografia pra jovens em formação profissional.</li>
+  </ul>
+  <p>Não é palestra teórica. É prática testada com públicos grandes, em salas reais, com gente que nunca teve aula de imagem antes.</p>
+  <p>Essa experiência prévia é a base desta proposta: entendi, na prática, que mulheres em vulnerabilidade não precisam de teorias densas — precisam de <em>celular na mão, orientação clara e um resultado concreto pra mostrar</em>. Esta formação foi desenhada exatamente assim: 40 horas estruturadas, com entregáveis reais ao final de cada encontro.</p>
+
+  <h2>1.5 Portfólio · Onde você pode ver meu trabalho</h2>
+  <p>Antes de ler o resto, dá uma olhada no que já produzi. Tudo público, tudo verificável:</p>
+  <ul>
+    <li><strong>YouTube:</strong> <a href="https://www.youtube.com/@Pauleandersonsouza">youtube.com/@Pauleandersonsouza</a> — vídeos de projetos, aulas e bastidores</li>
+    <li><strong>Site institucional:</strong> <a href="https://pauloanderson.plano.wordpress.com">pauloanderson.plano.wordpress.com</a> — portfólio completo, serviços e cases</li>
+    <li><strong>Instagram pessoal:</strong> <a href="https://www.instagram.com/pauleandersonn/">@pauleandersonn</a> — dia a dia, bastidores, ensaios</li>
+    <li><strong>Instagram de filmes:</strong> <a href="https://www.instagram.com/pauloandersonfilmes/">@pauloandersonfilmes</a> — conteúdo audiovisual, projetos de vídeo</li>
+  </ul>
+  <p>Se preferir conversar antes, meu WhatsApp é (92) 99241-1099.</p>
+
+  <h2>2. Entendimento do desafio</h2>
+  <p>O Instituto Consulado da Mulher — referência em microcrédito produtivo e orientado para mulheres empreendedoras de baixa renda —, em parceria local em Manaus, atende um grupo de 60 mulheres que estão em diferentes estágios: algumas já vendem informalmente; outras querem começar; quase todas carregam um celular e a expectativa de que ele possa virar ferramenta de geração de renda.</p>
+  <p>O compromisso assumido com o projeto é de 40 horas de formação técnica em fotografia. A escolha de fazer em encontros semanais (e não em uma semana corrida) reconhece a realidade desse público: muitas trabalham, cuidam de casa, atravessam a cidade. Semanas com mais tempo de amadurecimento entre uma aula e outra costumam gerar absorção real — e não só comparecimento.</p>
+  <p>Esta proposta responde a três perguntas concretas:</p>
+  <ul>
+    <li><strong>Como ensinar fotografia com celular</strong> a alguém que nunca teve aula de imagem?</li>
+    <li><strong>Como transformar essa habilidade em ativo de comunicação</strong> para um negócio real (mesmo que pequeno)?</li>
+    <li><strong>Como produzir um portfólio final</strong> que essas mulheres possam usar imediatamente — em Instagram, em proposta pra cliente, em banca de microcrédito?</li>
+  </ul>
+
+  <h2>3. Metodologia · Três pilares</h2>
+  <p>A formação segue o método que desenvolvi — <strong>Inspirar · Comunicar · Transformar</strong> — adaptado ao contexto do Instituto Consulado da Mulher (linguagem laica, foco em autonomia econômica, sem nenhuma dimensão confessional).</p>
+
+  <table>
+    <thead><tr><th>Pilar</th><th>O que a aluna ganha</th><th>Como aparece no programa</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Inspirar</strong></td><td>Confiança mínima no próprio olhar</td><td>Encontro 1 — "Aprender a ver antes de fotografar"</td></tr>
+      <tr class="sub"><td><strong>Comunicar</strong></td><td>Técnica de celular aplicável</td><td>Encontros 2 a 6 — iluminação, cenário, composição, edição, narrativa</td></tr>
+      <tr><td><strong>Transformar</strong></td><td>Portfólio real pronto pra uso</td><td>Encontro 7 — fechamento com 5 fotos curadas por aluna</td></tr>
+    </tbody>
+  </table>
+
+  <h2>4. Programação completa — 40 horas, 7 encontros</h2>
+  <p>Todos os encontros têm 2h de conteúdo expositivo/demonstrativo + prática assistida + roda de devolutiva. Formato pensado pra quem nunca fotografou com intenção.</p>
+  <table>
+    <thead><tr><th>#</th><th>Encontro</th><th>Carga</th><th>Conteúdo</th><th>Entregável</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Aprender a ver</td><td>6h</td><td>Leitura de imagem, regra dos terços, olhar atento, apresentação do projeto pessoal</td><td>10 fotos de exercício (tema "minha rotina")</td></tr>
+      <tr><td>2</td><td>Luz natural e iluminação com celular</td><td>6h</td><td>Horários de ouro, luz dura vs. suave, sombras como recurso, app de lanterna doméstica</td><td>10 fotos de exercício (tema "luz da minha casa")</td></tr>
+      <tr><td>3</td><td>Cenário e composição</td><td>6h</td><td>Fundos limpos, regra dos terços avançada, simetria, enquadramento pra Instagram (4:5, 1:1)</td><td>10 fotos de um produto/hobby</td></tr>
+      <tr><td>4</td><td>Retrato e autorretrato</td><td>6h</td><td>Enquadramento de pessoa, expressão, fundo desfocado (modo retrato), celular na mão da outra</td><td>10 fotos (retrato de alguém querido)</td></tr>
+      <tr><td>5</td><td>Edição leve no celular</td><td>6h</td><td>Snapseed (grátis): ajuste de luz, corte, nitidez. App nativo de fotos. Truques para fotos escuras</td><td>Antes/depois lado a lado</td></tr>
+      <tr><td>6</td><td>Contar uma história em 5 fotos</td><td>6h</td><td>Narrativa visual sequencial, legenda que conecta, uso prático (Instagram, WhatsApp Status, proposta comercial)</td><td>Mini-ensaio de 5 fotos com legenda</td></tr>
+      <tr class="sub"><td>7</td><td>Fechamento · Portfólio</td><td>4h</td><td>Curadoria, apresentação oral, plano de continuidade, grupo de WhatsApp de continuidade</td><td>5 fotos curadas + 1 página de portfólio impressa</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Materiais inclusos na formação</h3>
+  <ul>
+    <li>Apostila ilustrada (PDF, 24 páginas) com linguagem acessível — enviada por WhatsApp no Encontro 1</li>
+    <li>Lista de 1 app gratuito recomendado por módulo (Snapseed, Lightroom Mobile gratuito, Instagram)</li>
+    <li>Modelo de 1 página de portfólio editável (Canva, gratuito) entregue no Encontro 7</li>
+    <li>Grupo de WhatsApp de continuidade (operação por 60 dias após o Encontro 7, sem custo extra)</li>
+    <li>1 página impressa do portfólio final por aluna (produzida previamente pelo instrutor)</li>
+  </ul>
+
+  <h2>5. Logística e cronograma</h2>
+  <p><strong>Locais propostos (a confirmar):</strong> Espaço Monte das Oliveiras e Santos Dumont — fornecidos pelo Instituto.</p>
+  <p><strong>Cronograma proposto:</strong> 6 encontros semanais de 6h (sábados, 8h-14h) + 1 encontro de fechamento de 4h (sábado seguinte, 8h-12h). Total: 7 semanas. Janela preferencial: <strong>agosto a setembro de 2026</strong>, a combinar com a operação do Instituto.</p>
+  <p><strong>Divisão de turmas:</strong> 60 alunas / 2 turmas simultâneas de 30 — roteiro idêntico, instrutor alterna entre as salas. Material de apoio preparado pra 60 portfólios.</p>
+
+  <h2>6. Segurança e idoneidade · Como você se protege nessa parceria</h2>
+  <p>Trabalhar com recursos de uma OSCIP exige garantia dos dois lados. Listo abaixo o que está coberto por padrão nesta proposta — sem custo extra, porque é o mínimo que se espera de uma parceria institucional séria:</p>
+  <ul>
+    <li><strong>Contrato formal de prestação de serviço</strong> (1 a 2 páginas), com cronograma, responsabilidades, forma de pagamento e cláusula de rescisão — assinado pelas duas partes antes do Encontro 1.</li>
+    <li><strong>Emissão de nota fiscal (NF-e de serviço)</strong> pela MCR, com CNPJ ativo. O Instituto recebe documento fiscal válido pra prestação de contas.</li>
+    <li><strong>Cláusula de LGPD e direito de imagem</strong> já prevista no contrato: cada aluna (ou responsável) assina termo individual autorizando o uso pedagógico do material produzido. Nada de imagem vai pra portfólio público sem autorização explícita.</li>
+    <li><strong>Garantia de cumprimento</strong>: se eu não entregar o programa conforme cronograma acordado, o Instituto retém proporcionalmente o último pagamento. Isso está no contrato.</li>
+    <li><strong>Seguro de responsabilidade civil</strong> do instrutor: a confirmar no momento da assinatura, conforme exigência do Instituto (se for exigido, incluyo no custo).</li>
+    <li><strong>Relatório final de prestação de contas em PDF</strong> ao final do Encontro 7, com: lista de presença por encontro, fotos autorizadas, portfólios impressos entregues, horas realizadas, saldo de pagamentos.</li>
+    <li><strong>Referências verificáveis</strong>: posso fornecer contato do CETAM e de outros clientes institucionais sob solicitação, antes da assinatura do contrato.</li>
+  </ul>
+
+  <h2>7. Investimento</h2>
+  <div class="pricebox">
+    <div class="eyebrow">Valor único · programa completo</div>
+    <div class="bigprice">R$ 6.000</div>
+    <div class="pricedesc">Pagamento total pela formação de 60 alunas em 40 horas. Sem cobrança por aluna adicional, sem taxa de deslocamento dentro de Manaus.</div>
+  </div>
+
+  <h3>O que está incluso nos R$ 6.000</h3>
+  <ul>
+    <li>40 horas de instrução presencial (7 encontros)</li>
+    <li>12 horas de preparação de material (apostila, exercícios, modelo de portfólio)</li>
+    <li>Apostila ilustrada em PDF (24 páginas) — enviada por WhatsApp</li>
+    <li>1 página de portfólio impressa por aluna (60 unidades, papel couchê)</li>
+    <li>Grupo de WhatsApp de continuidade por 60 dias após o Encontro 7</li>
+    <li>Relatório final de prestação de contas em PDF</li>
+    <li>Contrato formal + NF-e + termo de LGPD</li>
+  </ul>
+
+  <h3>O que <em>não</em> está incluso (e pode ser contratado à parte, se desejado)</h3>
+  <ul>
+    <li>Gravação em vídeo das aulas (orçamento separado, sob demanda)</li>
+    <li>Deslocamento pra cidades fora de Manaus</li>
+    <li>Certificados em papel (o Instituto emite os seus; se preferir que eu produza, é orçamento à parte)</li>
+    <li>Microsites individuais por aluna (formato premium, orçamento à parte)</li>
+  </ul>
+
+  <h3>Forma de pagamento sugerida</h3>
+  <table>
+    <thead><tr><th>Parcela</th><th>Valor</th><th>Vencimento</th><th>Condição</th></tr></thead>
+    <tbody>
+      <tr><td>1ª</td><td>R$ 2.000</td><td>Na assinatura do contrato</td><td>Reserva a agenda e inicia preparação</td></tr>
+      <tr><td>2ª</td><td>R$ 2.000</td><td>Encontro 3 (meio do programa)</td><td>Confirma continuidade</td></tr>
+      <tr><td>3ª</td><td>R$ 2.000</td><td>Encontro 7 (entrega final)</td><td>Liberada após a entrega dos portfólios</td></tr>
+    </tbody>
+  </table>
+  <p>Outras condições (à vista com 5% de desconto, ou parcelamento diferente) podem ser combinadas na conversa de alinhamento.</p>
+
+  <h2>8. Modelo de parceria contínua · 1 projeto por trimestre</h2>
+  <p>O programa de 40h pra 60 alunas é robusto, mas um único ciclo não esgota a demanda — mulheres que terminam a formação rapidamente encontram novas alunas interessadas, e a operação do Instituto tem fluxo contínuo. Por isso proponho um modelo de <strong>parceria anual com 1 projeto por trimestre</strong>:</p>
+
+  <table>
+    <thead><tr><th>Trimestre</th><th>Período sugerido</th><th>Formação</th><th>Alunas</th></tr></thead>
+    <tbody>
+      <tr><td>1º</td><td>Ago-Set 2026</td><td>Formação Fotografia (este programa)</td><td>60</td></tr>
+      <tr><td>2º</td><td>Nov-Dez 2026</td><td>Comunicação Visual pra Vendas (proposta à parte)</td><td>60</td></tr>
+      <tr><td>3º</td><td>Fev-Mar 2027</td><td>Storytelling pra WhatsApp Business (proposta à parte)</td><td>60</td></tr>
+      <tr><td>4º</td><td>Mai-Jun 2027</td><td>Portfólio Digital + Presença Online (proposta à parte)</td><td>60</td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>Resultado anual estimado:</strong> 240 mulheres formadas em 4 trilhas complementares — todas com portfólio real, entregável concreto e base técnica pra usar a comunicação visual como ferramenta de trabalho.</p>
+
+  <p><strong>Condição de continuidade:</strong> cada projeto trimestral é contratado separadamente, com o mesmo valor de R$ 6.000. O Instituto pode entrar/sair do modelo a qualquer trimestre, sem multa. Isso protege os dois lados: vocês só renovam se o resultado justificar.</p>
+
+  <p><strong>Vantagem institucional do modelo trimestral:</strong></p>
+  <ul>
+    <li>Previsibilidade pra planejar turmas e divulgar a programação anual com antecedência.</li>
+    <li>Custo fixo de R$ 6.000 por trimestre — facilita dotação orçamentária.</li>
+    <li>As alunas dos trimestres anteriores podem ser convidadas pra mentoria voluntária (formato horizontal, sem custo extra).</li>
+    <li>Ao final de 12 meses, o Instituto tem um case documentado de 240 mulheres capacitadas — material rico pra editais, relatórios anuais e captação.</li>
+  </ul>
+
+  <h2>9. Diferenciais desta proposta</h2>
+  <ul>
+    <li><strong>Experiência prévia comprovada</strong> como instrutor pelo CETAM em formação pra mulheres — não é palestra teórica, é prática testada.</li>
+    <li><strong>Currículo replicável</strong> — o material vira módulo de curso online no MCR Academy, ampliando o impacto social sem custo adicional.</li>
+    <li><strong>Tom respeitoso com o público</strong> — método adaptado pra mulheres em vulnerabilidade (linguagem acessível, sem promessas de "faturar X mil"), com acolhimento de trajetórias diversas.</li>
+    <li><strong>Entregável concreto, não horas vagas</strong> — cada aluna sai com 5 fotos curadas + 1 página de portfólio impressa e pronta pra uso.</li>
+    <li><strong>Idoneidade documental</strong> — NF-e emitida pela MCR (CNPJ ativo), contrato formal e relatório final de prestação de contas. Tudo pronto pra auditoria.</li>
+  </ul>
+
+  <h2>10. Próximos passos (sugestão)</h2>
+  <ol>
+    <li><strong>Conversa de alinhamento</strong> (30-45min, online ou presencial) — pra eu entender: número exato de inscritas, datas preferidas, infraestrutura disponível nos locais, expectativas de portfólio, e tirar dúvidas.</li>
+    <li><strong>Acordo de investimento</strong> — escolha do cenário (A, B ou C) + forma de pagamento.</li>
+    <li><strong>Assinatura de contrato</strong> simples (1 página) com cronograma, responsabilidades e cláusula de imagem (LGPD).</li>
+    <li><strong>Encontro 1</strong> — aproximadamente 30 dias após a assinatura, com tempo hábil pra preparar material + organização das turmas.</li>
+  </ol>
+
+  <div class="signoff">
+    À disposição pra qualquer conversa. Pode me chamar no WhatsApp (92) 99241-1099 ou responder por aqui.<br><br>
+    <span class="name">Pauleanderson Souza</span><br>
+    Publicitário · Fotógrafo · Instrutor<br>
+    Fundador — Mídia Criativa do Reino (MCR)<br>
+    Manaus, AM · Brasil · WhatsApp (92) 99241-1099
+  </div>
+
+  <footer>
+    <div class="footer-tag">Mídia Criativa do Reino</div>
+    <div>Inspirar · Comunicar · Transformar</div>
+    <div>Proposta emitida em 07/07/2026 · válida até 07/08/2026</div>
+  </footer>
+
+</div>
+</body>
+</html>
